@@ -17,7 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Student TimeTable</a>
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="{{route('home-staff')}}">Student TimeTable</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,10 +32,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Position</a></li>
+                <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item" href="{{route('logout-staff')}}">Logout</a>
                 </li>
               </ul>
             </li>
@@ -63,17 +62,17 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link px-3">
+            {{-- <li>
+              <a href="{{route('exams-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Exams Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -81,13 +80,13 @@
               </div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('profile-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile</span>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('logout-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-box-arrow-right"></i></span>
                 <span>Logout</span>
               </a>
@@ -103,50 +102,74 @@
           <div class="col-md-12">
             <h4>Dashboard</h4>
           </div>
+          @if(!is_null(session('success')))  
+          <!-- Alert to be displayed -->
+          <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+
+          <!-- Add this script at the end of the body tag -->
+          <script>
+              // Function to hide the alert after 2 seconds
+              function hideAlert() {
+                  var alertDiv = document.getElementById('myAlert');
+                  alertDiv.style.display = 'none';
+              }
+
+              // Show the alert
+              document.addEventListener('DOMContentLoaded', function () {
+                  setTimeout(hideAlert, 2000);
+              });
+          </script>
+          @endif
         </div>
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card bg-primary text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-person-fill display-4 mb-3"></i>
                 <h5 class="card-title">Administrator Profile</h5>
               </div>
-              <div class="card-footer d-flex">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </div>
+              <a href="{{route('profile-staff')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
             </div>
           </div>                   
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card bg-success text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-book display-4 mb-3"></i>
                 <h5 class="card-title">Class Timetable</h5>
               </div>
-              <div class="card-footer d-flex">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </div>
+              <a href="{{route('classes-staff')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
-          <div class="col-md-4 mb-3">
+          {{-- <div class="col-md-4 mb-3">
             <div class="card bg-danger text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-file-earmark-text display-4 mb-3"></i>
                 <h5 class="card-title">Exam Timetable</h5>
               </div>
-              <div class="card-footer d-flex">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </div>
+              <a href="{{route('exams-staff')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
             </div>
-          </div>                    
+          </div> --}}                    
         </div>
       </div>
     </main>

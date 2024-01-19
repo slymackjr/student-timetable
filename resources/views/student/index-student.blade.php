@@ -17,7 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Student TimeTable</a>
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="{{route('home-student')}}">Student TimeTable</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,9 +32,8 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Student Username</a></li>
-                <li><a class="dropdown-item" href="#">Course Name</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" href="{{route('profile-student')}}">{{session('regno')}}</a></li>
+                <li><a class="dropdown-item" href="{{route('logout-student')}}">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -66,12 +65,12 @@
                 <span>Class Timetable</span>
               </a>
             </li>
-            <li>
+            {{-- <li>
               <a href="{{route('exam-sessions')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-calendar-check"></i></span>
                 <span>Exam Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -79,7 +78,7 @@
               </div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('profile-student')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile Details</span>
               </a>
@@ -97,7 +96,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card bg-success text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-book text-white display-4 mb-3"></i>
@@ -114,7 +113,7 @@
             </div>
           </div>
                    
-          <div class="col-md-4 mb-3">
+          {{-- <div class="col-md-4 mb-3">
             <div class="card bg-secondary text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-calendar text-white display-4 mb-3"></i>
@@ -129,9 +128,9 @@
                 </span>
               </div>
             </div>
-          </div>
+          </div> --}}
                     
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card bg-warning text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-person text-white display-4 mb-3"></i>
@@ -153,11 +152,7 @@
           <div class="col-md-12 mb-3">
             <div class="card">
               <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span> Classes Today Fri-05-Jan-2024
-              </div>
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <span><i class="bi bi-table me-2"></i></span> Classes Today {{$date}}
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -175,13 +170,17 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @if($today)
+                      @foreach ($today as $timetable)
                       <tr>
-                        <td>CSU07801</td>
-                        <td>System Architect</td>
-                        <td>12:00PM</td>
-                        <td>2:00PM</td>
-                        <td>MK5</td>
+                        <td>{{$timetable->module_id}}</td>
+                        <td>{{$timetable->module_name}}</td>
+                        <td>{{$timetable->start_time}}</td>
+                        <td>{{$timetable->end_time}}</td>
+                        <td>{{$timetable->room_name}}</td>
                       </tr>
+                      @endforeach
+                      @endif
                     </tbody>
                   </table>
                 </div>
@@ -189,7 +188,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
           <div class="col-md-12 mb-3">
             <div class="card">
               <div class="card-header">
@@ -228,32 +227,7 @@
               </div>
             </div>
           </div>
-        </div>
-        {{-- <div class="row">
-          <div class="col-md-6 mb-3">
-            <div class="card h-100">
-              <div class="card-header">
-                <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-                Area Chart Example
-              </div>
-              <div class="card-body">
-                <canvas class="chart" width="400" height="200"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <div class="card h-100">
-              <div class="card-header">
-                <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-                Area Chart Example
-              </div>
-              <div class="card-body">
-                <canvas class="chart" width="400" height="200"></canvas>
-              </div>
-            </div>
-          </div>
         </div> --}}
-  
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>

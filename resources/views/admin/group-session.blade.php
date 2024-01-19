@@ -52,7 +52,7 @@
               <div class="text-muted small fw-bold text-uppercase px-3">CORE</div>
             </li>
             <li>
-              <a href="{{route('home-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('home-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                 <span>Dashboard</span>
               </a>
@@ -62,17 +62,17 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="{{route('classes-staff')}}" class="nav-link px-3">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3 active">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
-            <li>
+            {{-- <li>
               <a href="{{route('exams-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Exams Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -100,73 +100,102 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h4>Create New Exam Session</h4>
+            <h4>Course 
+              @if(session('course'))
+              {{session('course')}} 
+              @endif
+              @if(session('year'))
+              {{session('year')}} 
+              @endif
+              GROUP 
+              @if(session('group'))
+              {{session('group')}}
+              @endif
+               Classes TimeTable
+            </h4>
+            @if(!is_null(session('success')))  
+            <!-- Alert to be displayed -->
+            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+
+            <!-- Add this script at the end of the body tag -->
+            <script>
+                // Function to hide the alert after 2 seconds
+                function hideAlert() {
+                    var alertDiv = document.getElementById('myAlert');
+                    alertDiv.style.display = 'none';
+                }
+
+                // Show the alert
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(hideAlert, 2000);
+                });
+            </script>
+            @endif
           </div>
         </div>
         <div class="row pb-5">
-            <div class="col-md-10 m-auto">
-              <div class="card">      
-                  <div class="card-body">
-                      <h5 class="card-title">Add Exam</h5>
-                      <a href="#">
-                          <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Exams</button>
-                      </a>
-                      <!-- General Form Elements -->
-                      <form method="post" action="">
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Module name</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="module" required>
-                              </div>
-                          </div>
-                         <div class="row mb-3">
-                              <label for="inputEmail" class="col-sm-2 col-form-label fw-bolder">Module Code</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="code" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="venue" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Faculty</label>
-                              <div class="col-sm-5">
-                                  <input type="number" class="form-control" name="Faculty" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Course</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="course" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Group</label>
-                              <div class="col-sm-5">
-                                  <input class="form-control" type="text" name="group" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Study Year</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="year" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <div class="col-sm-5 m-auto">
-                                  <button type="button" class="btn btn-primary fw-bolder" name="submit">Add Exam</button>
-                                  <input type="hidden" name="module-id">
-                              </div>
-                          </div>
-                      </form><!-- End General Form Elements -->
+          <div class="col-md-12 mb-3">
+            <div class="card">
+              <div class="card-header">
+                <span><i class="bi bi-table me-2"></i></span> Classes TimeTable
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <div class="pb-3">
+                    <a href="{{route('year-group',['year' => session('year')])}}">
+                      <button type="button" name="cid" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i>Groups</button>
+                    </a>
                   </div>
+                  <div class="pb-3">
+                    <a href="{{route('add-session')}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-plus"></i>Add Period</button>
+                    </a>
+                  </div>
+                  <table
+                    id="example"
+                    class="table table-striped data-table"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Day</th>
+                        <th>Time Start</th>
+                        <th>Time End</th>
+                        <th>Module Code</th>
+                        <th>Module Name</th>
+                        <th>Venue</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if($timetable)
+                      @foreach ($timetable as $table)
+                      <tr>
+                        <td>{{$table->day_of_week}}</td>
+                        <td>{{$table->start_time}}</td>
+                        <td>{{$table->end_time}}</td>
+                        <td>{{$table->module_id}}</td>
+                        <td>{{$table->module_name}}</td>
+                        <td>{{$table->room_name}}</td>
+                        <td>
+                          <a href="{{route('edit-session',['class_id' => $table->class_id])}}">
+                            <button type="button" name="user" class="btn btn-outline-secondary">View Details</button>
+                          </a>
+                          <form method="POST" action="{{route('delete-session')}}"> 
+                            @csrf
+                            <button type="submit" class="btn btn-outline-success">Delete Details</button>
+                            <input type="hidden" name="class_id" value="{{$table->class_id}}">
+                          </form>   
+                        </td>
+                      </tr>
+                      @endforeach
+                      @endif
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
+          </div>
         </div>
-      </div>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>

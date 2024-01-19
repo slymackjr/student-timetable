@@ -24,19 +24,19 @@
           
                           <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Welcome Back Student!</p>
           
-                          <form class="mx-1 mx-md-4" method="POST" action="">
-          
+                          <form class="mx-1 mx-md-4" method="POST" action="{{route('login-student-method')}}">
+                            @csrf
                             <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
-                                <input type="email" id="form3Example3c" class="form-control" placeholder="Your Registration Number"/>
+                                <input type="text" id="form3Example3c" class="form-control" name="regno" placeholder="Your Registration Number"/>
                               </div>
                             </div>
           
                             <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
-                                <input type="password" id="form3Example4c" class="form-control" placeholder="Password"/>
+                                <input type="password" id="form3Example4c" class="form-control" name="password" placeholder="Password" required/>
                               </div>
                             </div>
           
@@ -48,21 +48,15 @@
                             </div>
           
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                              <button type="button" class="btn btn-primary btn-lg">Login</button>
+                              <button type="submit" class="btn btn-primary btn-lg">Login</button>
                             </div>
-
-                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                              <p class="small mb-0">Don't have account? <a class="no-link-line" href="{{route('register-student')}}">Create an account</a></p>
-                            </div>
-          
                           </form>
-          
                         </div>
                         <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-          
-                          <img src="img/lable.jpg"
-                            class="img-fluid rounded-4" alt="Sample image">
-          
+                          <a href="{{route('home')}}">
+                            <img src="img/lable.jpg"
+                            class="img-fluid rounded-4 w-50" alt="Sample image">
+                          </a>
                         </div>
                       </div>
                     </div>
