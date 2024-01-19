@@ -17,7 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Student TimeTable</a>
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="{{route('home-student')}}">Student TimeTable</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,10 +32,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Position</a></li>
+                <li><a class="dropdown-item" href="{{route('profile-student')}}">{{session('regno')}}</a></li>
                 <li>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item" href="{{route('logout-student')}}">Logout</a>
                 </li>
               </ul>
             </li>
@@ -53,7 +52,7 @@
               <div class="text-muted small fw-bold text-uppercase px-3">CORE</div>
             </li>
             <li>
-              <a href="{{route('home-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('home-student')}}" class="nav-link px-3 active">
                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                 <span>Dashboard</span>
               </a>
@@ -63,17 +62,17 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('week-classes')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link px-3">
+            {{-- <li>
+              <a href="{{route('exams-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Exams Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -81,15 +80,9 @@
               </div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('profile-student')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
-                <span>Profile</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-3">
-                <span class="me-2"><i class="bi bi-box-arrow-right"></i></span>
-                <span>Logout</span>
+                <span>Profile Details</span>
               </a>
             </li>
           </ul>
@@ -102,6 +95,24 @@
         <div class="row">
           <div class="col-md-12">
             <h4>Profile</h4>
+            @if(!is_null(session('success')))  
+            <!-- Alert to be displayed -->
+            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+
+            <!-- Add this script at the end of the body tag -->
+            <script>
+                // Function to hide the alert after 2 seconds
+                function hideAlert() {
+                    var alertDiv = document.getElementById('myAlert');
+                    alertDiv.style.display = 'none';
+                }
+
+                // Show the alert
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(hideAlert, 2000);
+                });
+            </script>
+            @endif
           </div>
         </div>
         <div class="row">
@@ -109,8 +120,8 @@
               <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">    
                   <img src="img/lable.jpg" alt="Profile" class="rounded-circle img-fluid w-50 w-50">
-                  <h2>Welcome Student</h2>
-                  <h3>Student</h3>
+                  <h2>{{session('name')}}</h2>
+                  <h3>{{session('regno')}}</h3>
                   <div class="social-links mt-2">
                     <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                     <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -129,212 +140,70 @@
                       <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                     </li>
                     <li class="nav-item">
-                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                    </li>
-                    <li class="nav-item">
-                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                    </li>
-                    <li class="nav-item">
                       <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                     </li>
                   </ul>
                   <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                      <h5 class="card-title">About</h5>
-                      <p class="small fst-italic">You are granted minimal privileges with regard to you privacy.</p>
                       <h5 class="card-title">Profile Details</h5>
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                        <div class="col-lg-9 col-md-8">STudent</div>
+                        <div class="col-lg-3 col-md-4 label h5 h5">Full Name</div>
+                        <div class="col-lg-9 col-md-8">{{session('name')}}</div>
                       </div>
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">university</div>
+                        <div class="col-lg-3 col-md-4 label h5">university</div>
                         <div class="col-lg-9 col-md-8">Institute Of Finance Management</div>
                       </div>
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Status</div>
-                        <div class="col-lg-9 col-md-8">Student</div>
+                        <div class="col-lg-3 col-md-4 label h5">Course</div>
+                        <div class="col-lg-9 col-md-8">{{session('course')}}</div>
                       </div>    
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Country</div>
-                        <div class="col-lg-9 col-md-8">Tanzania</div>
+                        <div class="col-lg-3 col-md-4 label h5">Department</div>
+                        <div class="col-lg-9 col-md-8">{{session('department')}}</div>
                       </div>   
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Address</div>
-                        <div class="col-lg-9 col-md-8">kigamboni mbuni street</div>
+                        <div class="col-lg-3 col-md-4 label h5">Faculty</div>
+                        <div class="col-lg-9 col-md-8">{{session('faculty')}}</div>
                       </div>
-    
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Phone</div>
-                        <div class="col-lg-9 col-md-8">0767413968</div>
+                        <div class="col-lg-3 col-md-4 label h5">Registration NUmber</div>
+                        <div class="col-lg-9 col-md-8">{{session('regno')}}</div>
+                      </div>   
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label h5">Email</div>
+                        <div class="col-lg-9 col-md-8">{{session('email')}}</div>
                       </div>
-    
                       <div class="row">
-                        <div class="col-lg-3 col-md-4 label">Email</div>
-                        <div class="col-lg-9 col-md-8">slymack999@gmail.com</div>
+                        <div class="col-lg-3 col-md-4 label h5">Gender</div>
+                        <div class="col-lg-9 col-md-8">{{session('gender')}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label h5">Study Year</div>
+                        <div class="col-lg-9 col-md-8">{{session('year')}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label h5">Study Group</div>
+                        <div class="col-lg-9 col-md-8">{{session('group')}}</div>
                       </div>
                         <br>
-                    </div>   
-                    <div class="tab-pane fade profile-edit pt-3" id="profile-edit">   
-                      <!-- Profile Edit Form -->
-                      <form method="post">
-                        <div class="row mb-3">
-                          <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                          <div class="col-md-8 col-lg-9">
-                            <img src="img/lable.jpg" alt="Profile" class="rounded-circle img-fluid w-50">
-                            <div class="pt-2">
-                              <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                              <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="name" type="text" class="form-control" id="fullName">
-                          </div>
-                        </div>    
-                          <div class="row mb-3">
-                              <label for="Username" class="col-md-4 col-lg-3 col-form-label">Username</label>
-                              <div class="col-md-8 col-lg-9">
-                                  <input name="username" type="text" class="form-control" id="username">
-                              </div>
-                          </div>
-                        <div class="row mb-3">
-                          <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                          <div class="col-md-8 col-lg-9">
-                            <textarea name="about" class="form-control" id="about" style="height: 100px" disabled>You are granted minimal privileges with regard to you privacy.</textarea>
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="university" class="col-md-4 col-lg-3 col-form-label">university</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="university" type="text" class="form-control" id="university" value="Institute Of Finance Management" disabled>
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="status" class="col-md-4 col-lg-3 col-form-label">Status</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="status" type="text" class="form-control" id="status" value="Student" disabled>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="country" type="text" class="form-control" id="Country" value="Tanzania" disabled>
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="address" type="text" class="form-control" id="Address">
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="contactInfo" type="text" class="form-control" id="Phone">
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="email" type="email" class="form-control" id="Email">
-                          </div>
-                        </div>   
-                          <div class="row mb-3">
-                              <label for="regno" class="col-md-4 col-lg-3 col-form-label">Registration Number</label>
-                              <div class="col-md-8 col-lg-9">
-                                  <input name="regno" type="text" class="form-control" id="regno">
-                              </div>
-                          </div>    
-                        <div class="row mb-3">
-                          <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                          </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
-                          </div>
-                        </div>   
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-                        </div>
-                      </form><!-- End Profile Edit Form -->    
-                    </div>    
-                    <div class="tab-pane fade pt-3" id="profile-settings">   
-                      <!-- Settings Form -->
-                      <form>    
-                        <div class="row mb-3">
-                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                          <div class="col-md-8 col-lg-9">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                              <label class="form-check-label" for="changesMade">
-                                Changes made to your account
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                              <label class="form-check-label" for="newProducts">
-                                Information on new products and services
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="proOffers">
-                              <label class="form-check-label" for="proOffers">
-                                Marketing and promo offers
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                              <label class="form-check-label" for="securityNotify">
-                                Security alerts
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                      </form><!-- End settings Form -->
-                    </div>
+                    </div>      
                     <div class="tab-pane fade pt-3" id="profile-change-password">
                       <!-- Change Password Form -->
-                      <form method="post">
+                      <form method="post" action="{{route('change-password')}}">
+                        @csrf
                         <div class="row mb-3">
                           <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                           <div class="col-md-8 col-lg-9">
-                            <input name="password" type="password" class="form-control" id="currentPassword">
+                            <input name="password" type="password" class="form-control">
                           </div>
                         </div>    
                         <div class="row mb-3">
                           <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                           <div class="col-md-8 col-lg-9">
-                            <input name="newpassword" type="password" class="form-control" id="newPassword">
+                            <input name="newpassword" type="password" class="form-control">
                           </div>
-                        </div>    
-                        <div class="row mb-3">
-                          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                          </div>
-                        </div>    
+                        </div>       
                         <div class="text-center">
                           <button type="submit" class="btn btn-primary" name="changePassword">Change Password</button>
                         </div>

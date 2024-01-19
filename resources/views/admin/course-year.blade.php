@@ -52,7 +52,7 @@
               <div class="text-muted small fw-bold text-uppercase px-3">CORE</div>
             </li>
             <li>
-              <a href="{{route('home-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('home-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                 <span>Dashboard</span>
               </a>
@@ -62,17 +62,17 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="{{route('classes-staff')}}" class="nav-link px-3">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3 active">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
-            <li>
+            {{-- <li>
               <a href="{{route('exams-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Exams Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -100,73 +100,69 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h4>Create New Exam Session</h4>
+            <h4>
+              @if(session('course'))
+                {{ session('course') }}
+             @endif
+             Classes TimeTable
+            </h4>
           </div>
         </div>
-        <div class="row pb-5">
-            <div class="col-md-10 m-auto">
-              <div class="card">      
-                  <div class="card-body">
-                      <h5 class="card-title">Add Exam</h5>
-                      <a href="#">
-                          <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Exams</button>
-                      </a>
-                      <!-- General Form Elements -->
-                      <form method="post" action="">
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Module name</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="module" required>
-                              </div>
-                          </div>
-                         <div class="row mb-3">
-                              <label for="inputEmail" class="col-sm-2 col-form-label fw-bolder">Module Code</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="code" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="venue" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Faculty</label>
-                              <div class="col-sm-5">
-                                  <input type="number" class="form-control" name="Faculty" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Course</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="course" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Group</label>
-                              <div class="col-sm-5">
-                                  <input class="form-control" type="text" name="group" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Study Year</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="year" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <div class="col-sm-5 m-auto">
-                                  <button type="button" class="btn btn-primary fw-bolder" name="submit">Add Exam</button>
-                                  <input type="hidden" name="module-id">
-                              </div>
-                          </div>
-                      </form><!-- End General Form Elements -->
-                  </div>
-              </div>
-            </div>
+        <div class="pb-3">
+          <a href="{{route('classes-staff')}}">
+            <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Courses</button>
+          </a>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card bg-primary text-white h-100">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-person-fill display-4 mb-3"></i>
+                <h5 class="card-title">YEAR 1</h5>
+              </div>
+              <a href="{{ route('year-group', ['year' => '1']) }}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>                   
+          <div class="col-md-4 mb-3">
+            <div class="card bg-success text-white h-100">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-book display-4 mb-3"></i>
+                <h5 class="card-title">YEAR 2</h5>
+              </div>
+              <a href="{{ route('year-group', ['year' => '2']) }}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card bg-danger text-white h-100">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-file-earmark-text display-4 mb-3"></i>
+                <h5 class="card-title">YEAR 3</h5>
+              </div>
+              <a href="{{ route('year-group', ['year' => '3']) }}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>          
+        </div>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>

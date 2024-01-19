@@ -17,7 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Student TimeTable</a>
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="{{route('home-staff')}}">Student TimeTable</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,10 +32,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Position</a></li>
+                <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item" href="{{route('logout-staff')}}">Logout</a>
                 </li>
               </ul>
             </li>
@@ -53,7 +52,7 @@
               <div class="text-muted small fw-bold text-uppercase px-3">CORE</div>
             </li>
             <li>
-              <a href="{{route('home-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('home-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                 <span>Dashboard</span>
               </a>
@@ -63,17 +62,17 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3 active">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
-            <li>
-              <a href="#" class="nav-link px-3">
+            {{-- <li>
+              <a href="{{route('exams-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Exams Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -81,13 +80,13 @@
               </div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('profile-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile</span>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('logout-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-box-arrow-right"></i></span>
                 <span>Logout</span>
               </a>
@@ -102,68 +101,105 @@
         <div class="row">
           <div class="col-md-12">
             <h4>Edit Class Session</h4>
+            @if(!is_null(session('success')))  
+            <!-- Alert to be displayed -->
+            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+
+            <!-- Add this script at the end of the body tag -->
+            <script>
+                // Function to hide the alert after 2 seconds
+                function hideAlert() {
+                    var alertDiv = document.getElementById('myAlert');
+                    alertDiv.style.display = 'none';
+                }
+
+                // Show the alert
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(hideAlert, 2000);
+                });
+            </script>
+            @endif
           </div>
         </div>
         <div class="row pb-5">
             <div class="col-md-10 m-auto">
               <div class="card">      
-                  <div class="card-body">
-                      <h5 class="card-title">Session Details</h5>
-                      <a href="#">
-                          <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Classes</button>
-                      </a>
-                      <!-- General Form Elements -->
-                      <form method="post" action="">
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Module name</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="module" required>
-                              </div>
+                <div class="card-body">
+                  <h5 class="card-title">Edit Session</h5>
+                  <a href="{{route('group-session',['group' => session('group')])}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Classes</button>
+                  </a>
+                  <!-- General Form Elements -->
+                  <form method="post" action="{{route('update-session')}}">
+                    @csrf
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Week Day</label>
+                      <div class="col-sm-5">
+                            <select class="form-select" name="week_day" required>
+                              <option value="@if($day_of_week){{$day_of_week}}@endif" disabled selected>@if($day_of_week){{$day_of_week}}@else  Select a week day @endif</option>
+                              <option value="Monday">Monday</option>
+                              <option value="Tuesday">Tuesday</option>
+                              <option value="Wednesday">Wednesday</option>
+                              <option value="Thursday">Thursday</option>
+                              <option value="Friday">Friday</option>
+                              <option value="Saturday">Saturday</option>
+                              <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                      </div>                      
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Start Time</label>
+                        <div class="col-sm-5">
+                            <input type="time" class="form-control" name="start_time" value="@if($start_time){{$start_time}}@endif" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label fw-bolder">End Time</label>
+                        <div class="col-sm-5">
+                            <input type="time" class="form-control" name="end_time" value="@if($end_time){{$end_time}}@endif" required>
+                        </div>
+                    </div>                        
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Module name</label>
+                        <div class="col-sm-5">
+                            <select class="form-select" name="module" required>
+                              <option value="@if($module_name){{$module_name}}@endif" disabled selected>@if($module_name){{$module_name}}@else Select a module @endif</option>
+                              @if($modules)
+                              @foreach($modules as $module)
+                              <option value="{{$module['module_name']}}">{{$module['module_name']}}</option>
+                              @endforeach
+                              @endif
+                            </select>
+                        </div>
+                      </div>                      
+                      <div class="row mb-3">
+                          <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
+                          <div class="col-sm-5">
+                            <select class="form-select" name="venue" required>
+                                <option value="@if($room_name){{$room_name}}@endif" disabled selected>@if($room_name){{$room_name}}@else Select a venue @endif</option>
+                                @if($venues)
+                                @foreach($venues as $venue)
+                                <option value="{{$venue['venue_name']}}">{{$venue['venue_name']}}</option>
+                                @endforeach
+                                @endif
+                              </select>
                           </div>
-                         <div class="row mb-3">
-                              <label for="inputEmail" class="col-sm-2 col-form-label fw-bolder">Module Code</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="code" required>
-                              </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Lecturer's name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="lecturer" value="@if($lecturer_name){{$lecturer_name}}@endif" required>
+                        </div>
+                      </div>                                               
+                      <div class="row mb-3">
+                          <div class="col-sm-5 m-auto">
+                              <button type="submit" class="btn btn-primary fw-bolder" name="submit">Edit Session</button>
+                              <input type="hidden" value="{{$class_id}}" name="class_id">
                           </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="venue" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Faculty</label>
-                              <div class="col-sm-5">
-                                  <input type="number" class="form-control" name="Faculty" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Course</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="course" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Group</label>
-                              <div class="col-sm-5">
-                                  <input class="form-control" type="text" name="group" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Study Year</label>
-                              <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="year" required>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <div class="col-sm-5 m-auto">
-                                  <button type="button" class="btn btn-primary fw-bolder" name="submit">Edit Session</button>
-                                  <input type="hidden" name="module-id">
-                              </div>
-                          </div>
-                      </form><!-- End General Form Elements -->
-                  </div>
+                      </div>
+                  </form><!-- End General Form Elements -->
+              </div>
               </div>
             </div>
         </div>

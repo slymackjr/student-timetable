@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'staffs' => [
+            'driver' => 'session',
+            'provider' => 'staff',
+        ],
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -64,7 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+        'staff' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Staff::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Student::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

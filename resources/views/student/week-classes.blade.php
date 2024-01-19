@@ -17,7 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Student TimeTable</a>
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="{{route('home-student')}}">Student TimeTable</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,9 +32,8 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Student Username</a></li>
-                <li><a class="dropdown-item" href="#">Course Name</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <li><a class="dropdown-item" href="{{route('profile-student')}}">{{session('regno')}}</a></li>
+                <li><a class="dropdown-item" href="{{route('logout-student')}}">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -66,12 +65,12 @@
                 <span>Class Timetable</span>
               </a>
             </li>
-            <li>
+           {{--  <li>
               <a href="{{route('exam-sessions')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-calendar-check"></i></span>
                 <span>Exam Timetable</span>
               </a>
-            </li>
+            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -79,7 +78,7 @@
               </div>
             </li>
             <li>
-              <a href="#" class="nav-link px-3">
+              <a href="{{route('profile-student')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile Details</span>
               </a>
@@ -97,7 +96,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <div class="card bg-primary text-white h-100 d-flex align-items-center justify-content-center">
               <i class="bi bi-calendar text-white h1"></i>
               <div class="card-footer d-flex">
@@ -110,7 +109,7 @@
               </div>
             </div>
           </div>
-          
+         {{--  
           <div class="col-md-4 mb-3">
             <div class="card bg-warning text-dark h-100 d-flex align-items-center justify-content-center">
               <i class="bi bi-calendar text-dark h1"></i> 
@@ -124,8 +123,8 @@
               </div>
             </div>
           </div>
-          
-          <div class="col-md-4 mb-3">
+           --}}
+          <div class="col-md-6 mb-3">
             <div class="card bg-success text-white h-100 d-flex align-items-center justify-content-center">
               <i class="bi bi-person text-white h1"></i> <div class="card-footer d-flex">
                 <div class="text-white">Personal Details</div>
@@ -143,12 +142,9 @@
               <div class="card-header">
                 <span><i class="bi bi-table me-2"></i></span> Classes  Weekly
               </div>
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
               <div class="card-body">
                 <div class="table-responsive">
+{{-- 
                   <table class="table table-bordered text-center table-striped">
                       <thead>
                           <tr class="bg-light-gray">
@@ -440,6 +436,70 @@
 
                       </tbody>
                   </table>
+                   --}}
+                   <table class="table table-bordered text-center table-striped">
+                    <thead>
+                        <tr class="bg-light-gray">
+                            <th class="text-uppercase">Time
+                            </th>
+                            <th class="text-uppercase">Monday</th>
+                            <th class="text-uppercase">Tuesday</th>
+                            <th class="text-uppercase">Wednesday</th>
+                            <th class="text-uppercase">Thursday</th>
+                            <th class="text-uppercase">Friday</th>
+                            <th class="text-uppercase">Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($classesData as $class)
+                          <tr>
+                              <td class="align-middle">{{ $class->start_time }} - {{ $class->end_time }}</td>
+                              <td>
+                                  @if ($class->day_of_week == 'Monday')
+                                      <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                      <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                      <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                              <td>
+                                  @if ($class->day_of_week == 'Tuesday')
+                                  <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                  <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                  <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                              <td>
+                                  @if ($class->day_of_week == 'Wednesday')
+                                  <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                  <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                  <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                              <td>
+                                  @if ($class->day_of_week == 'Thursday')
+                                  <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                  <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                  <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                              <td>
+                                  @if ($class->day_of_week == 'Friday')
+                                  <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                  <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                  <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                              <td>
+                                  @if ($class->day_of_week == 'Saturday')
+                                  <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                  <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
+                                  <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                  @endif
+                              </td>
+                          </tr>
+                      @endforeach
+                  </tbody>
+                </table>
               </div>
               </div>
             </div>
