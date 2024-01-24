@@ -24,13 +24,13 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+             {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{session('name')}}<i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
@@ -150,6 +150,9 @@
                     <a href="{{route('add-session')}}">
                       <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-plus"></i>Add Period</button>
                     </a>
+                    <a href="{{route('show-class-sessions')}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-calendar"></i>Class Sessions</button>
+                    </a>
                   </div>
                   <table
                     id="example"
@@ -162,6 +165,7 @@
                         <th>Time End</th>
                         <th>Module Code</th>
                         <th>Module Name</th>
+                        <th>Session Type</th>
                         <th>Venue</th>
                         <th>Action</th>
                       </tr>
@@ -175,6 +179,7 @@
                         <td>{{$table->end_time}}</td>
                         <td>{{$table->module_id}}</td>
                         <td>{{$table->module_name}}</td>
+                        <td>{{$table->session_type}}</td>
                         <td>{{$table->room_name}}</td>
                         <td>
                           <a href="{{route('edit-session',['class_id' => $table->class_id])}}">

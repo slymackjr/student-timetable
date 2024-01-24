@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StudentModel;
 use DateTime;
 use Carbon\Carbon;
 use App\Models\Staff;
@@ -80,7 +81,10 @@ class StaffController extends Controller
     public function yearGroup(): View
     {
         session(['year' => request('year')]);
-        return view('admin.year-group');
+        $staff = new StaffModel();
+        return view('admin.year-group',[
+            'groups' => $staff->showGroups()
+        ]);
     }
 
     public function groupSession(): View
@@ -114,6 +118,7 @@ class StaffController extends Controller
             'class_id'=> $groupTimetable->class_id,
             'module_id'=> $groupTimetable->module_id,
             'module_name'=> $groupTimetable->module_name,
+            'session_type'=> $groupTimetable->session_type,
             'course_id'=> $groupTimetable->course_id,
             'course_year'=> $groupTimetable->course_year,
             'course_group'=> $groupTimetable->course_group,
@@ -136,19 +141,31 @@ class StaffController extends Controller
         if(!$class) {
             // Handle the case where the record is not found
             // You can redirect back with an error message or take appropriate action
-            session()->flash('success', 'Class session not found!.');
+            session()->flash('success_message', 'Class session not found!.');
             return $this->showCourseGroupTimetable();
         }
 
          // Define the variables you want to update
-        $updateVariables = [
-            'day_of_week' => $request->input('week_day'),
-            'start_time' => $request->input('start_time'),
-            'end_time' => $request->input('end_time'),
-            'module_name' => $request->input('module'),
-            'room_name' => $request->input('venue'),
-            'lecturer_name' => $request->input('lecturer'),
+         $updateVariables = [
+            'day_of_week' => $request->input('week_day')?? $class->day_of_week,
+            'start_time' => $request->input('start_time')?? $class->start_time,
+            'end_time' => $request->input('end_time')?? $class->end_time,
+            'module_name' => $request->input('module')?? $class->module_name,
+            'room_name' => $request->input('venue')?? $class->room_name,
+            'lecturer_name' => $request->input('lecturer')?? $class->lecturer_name,
         ];
+
+        $dayOfWeek = $updateVariables['day_of_week'];
+        $startTime = $updateVariables['start_time'];
+        $endTime = $updateVariables['end_time'];
+
+        $staff = new StaffModel();
+        $success = $staff->checkIfSessionTaken($dayOfWeek,$startTime,$endTime);
+
+        if($success){
+            session()->flash('success_message', 'Class session exists with that time interval!.');
+            return $this->showCourseGroupTimetable();  
+        }
 
         // Loop through the update variables and update if there is a value
         foreach ($updateVariables as $key => $value) {
@@ -161,10 +178,10 @@ class StaffController extends Controller
         $success = $class->save();
 
         if($success){
-            session()->flash('success', 'Class session updated!.');
+            session()->flash('success_message', 'Class session updated!.');
             return $this->showCourseGroupTimetable();
         }
-        session()->flash('success', 'Class session update failed!.');
+        session()->flash('success_message', 'Class session update failed!.');
         return $this->showCourseGroupTimetable();
     }
 
@@ -173,9 +190,11 @@ class StaffController extends Controller
         $staff = new StaffModel();
         $venues = $staff->showVenues();
         $modules  = $staff->showModules();
+        $lecturers  = $staff->showLecturers();
         return view('admin.add-session',[
             'venues' => $venues,
-            'modules' => $modules
+            'modules' => $modules,
+            'lecturers' => $lecturers
         ]);
     }
 
@@ -189,15 +208,25 @@ class StaffController extends Controller
         $module = $request->input('module');
         $venue = $request->input('venue');
         $lecturer = $request->input('lecturer');
+        $session_type = $request->input('session_type');
+
 
         $staff = new StaffModel();
-        $success = $staff->addSession($week_day,$start_time,$end_time,$module,$venue,$lecturer);
+        $success = $staff->addSession($week_day,$start_time,$end_time,$module,$venue,$lecturer,$session_type);
         if($success){
-            session()->flash('success', 'Class session created!.');
+            session()->flash('success_message', 'Class session created!.');
             return $this->showCreateClass();
         }
-        session()->flash('success', 'Class session creation failed!.');
         return $this->showCreateClass();
+    }
+
+    public function showClassSessions(): View
+    {
+        $student = new StudentModel();
+        $week = $student->WeekTimetable();
+        return view('admin.week-classes',[
+            'classesData' => $week
+        ]);
     }
 
     public function showProfile(): View

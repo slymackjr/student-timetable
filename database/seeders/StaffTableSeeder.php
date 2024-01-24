@@ -15,7 +15,7 @@ class StaffTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('staff')->insert([
-            'name' => 'MIke John',
+            'name' => 'Mike John',
             'staff_id' => '98765',
             'job_title' => 'Administrator',
             'staff_department' => 'Department of Computer Science',

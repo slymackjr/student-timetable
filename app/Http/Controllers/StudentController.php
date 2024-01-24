@@ -22,6 +22,7 @@ class StudentController extends Controller
          if ($success) {
             // Login successful
             session()->flash('success', 'Welcome back.');
+            $student->studentAccount();
             return redirect()->route('home-student');
         } else {
             // Login failed
@@ -60,7 +61,7 @@ class StudentController extends Controller
     public function studentProfile()
     {
         $student = new StudentModel();
-        $student->studentTimetable();
+        $student->studentAccount();
         return view('student.profile-student');
     }
 

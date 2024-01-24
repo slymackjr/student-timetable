@@ -16,15 +16,27 @@ class StudentsTableSeeder extends Seeder
     {
         DB::table('students')->insert([
             'name' => 'Jofrey Nyamasheki',
-            'registration_number' => 'IMC/BCS/2120294',
+            'registration_number' => 'IMC/BCS/2120200',
             'course' => 'BCS',
             'study_year' => '3',
-            'study_group' => '2',
-            'faculty' => 'FCM',
+            'study_group' => 'Software Engineering',
+            'faculty' => 'Faculty of Computing and Mathematics (FCM)',
             'department' => 'Department of Computer Science',
             'gender' => 'Male',
             'email' => 'jbnyamasheki@gmail.com',
-            'password' => Hash::make('IMC/BCS/2120294'),
+            'password' => Hash::make('IMC/BCS/2120200'),
+        ]);
+        DB::table('students')->insert([
+            'name' => 'Frank Ndamo',
+            'registration_number' => 'IMC/BCS/2120100',
+            'course' => 'BCS',
+            'study_year' => '3',
+            'study_group' => 'Computer Network',
+            'faculty' => 'Faculty of Computing and Mathematics (FCM)',
+            'department' => 'Department of Computer Science',
+            'gender' => 'Male',
+            'email' => 'frankndamo@gmail.com',
+            'password' => Hash::make('IMC/BCS/2120100'),
         ]);
     }
 }

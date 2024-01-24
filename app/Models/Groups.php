@@ -5,36 +5,37 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class University extends Model
+class Groups extends Model
 {
     use HasFactory;
-     /**
+
+    /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'university';
+    protected $table = 'groups';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'course_id';
+    protected $primaryKey = 'group_id';
 
     /**
      * Indicates if the model's ID is auto-incrementing.
      *
      * @var bool
      */
-    public $incrementing = false;
+    public $incrementing = true;
 
     /**
      * The data type of the auto-incrementing ID.
      *
      * @var string
      */
-    protected $keyType = 'string';
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
@@ -43,10 +44,8 @@ class University extends Model
      */
     protected $fillable = [
         'course_id',
-        'course_name',
-        'course_years',
-        'department_name',
-        'faculty_name',
+        'course_year',
+        'group_name',
     ];
 
     /**
@@ -56,10 +55,8 @@ class University extends Model
      */
     protected $casts = [
         'course_id' => 'string',
-        'course_name' => 'string',
-        'course_years' => 'string',
-        'department_name' => 'string',
-        'faculty_name' => 'string',
+        'course_year' => 'integer',
+        'group_name' => 'string',
     ];
 
     /**
@@ -68,4 +65,10 @@ class University extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public static $rules = [
+        'course_id' => 'required|string',
+        'course_year' => 'required|integer',
+        'group_name' => 'required|string',
+    ];
 }

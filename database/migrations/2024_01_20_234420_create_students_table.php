@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('registration_number')->primary();
             $table->string('course');
             $table->string('study_year');
@@ -22,6 +22,11 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->unique();
             $table->string('password');
+
+             // Foreign key constraint
+             $table->foreign('department')->references('department_name')->on('departments');
+             $table->foreign('faculty')->references('faculty_name')->on('faculties');
+             $table->foreign('course')->references('course_id')->on('courses');
         });
     }
 

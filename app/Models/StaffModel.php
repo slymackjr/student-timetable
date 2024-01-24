@@ -30,6 +30,7 @@ class StaffModel extends Model
                     Session::regenerate();
                     // Save the changes to the session
                     Session::save();
+                    $this->staffAccount();
                     session()->flash('success', 'login successfully!.');
                     return true;
                 } else {
@@ -87,6 +88,7 @@ class StaffModel extends Model
                                     Session::regenerate();
                                     // Save the changes to the session
                                     Session::save();
+                                    $this->staffAccount();
                                     session()->flash('success', 'Registered successfully.');
                                     return true;
                                 } else {
@@ -104,6 +106,14 @@ class StaffModel extends Model
                     }
                 }
        
+    }
+
+    public function showGroups()
+    {
+        return Groups::where('course_id',session('course'))
+                        ->where('course_year',session('year'))
+                        ->orderBy('group_name', 'asc')
+                        ->get();
     }
 
     public function courseGroupTimetable()
@@ -164,32 +174,84 @@ class StaffModel extends Model
 
     public function showModules()
     {
-        return Modules::all();
+        return Modules::where('course_id',session('course'))
+                        ->where('course_year',session('year'))
+                        ->get();
     }
 
-    public function addSession($week_day,$start_time,$end_time,$module,$venue,$lecturer): bool
+    public function showLecturers()
     {
-        $modules = Modules::where('module_name',$module)->first();
-        $module_id = $modules->module_id;
-        $classes = new Classes();
-        $classes->setAttribute('module_name',$module);
-        $classes->setAttribute('day_of_week',$week_day);
-        $classes->setAttribute('start_time',$start_time);
-        $classes->setAttribute('end_time',$end_time);
-        $classes->setAttribute('room_name',$venue);
-        $classes->setAttribute('lecturer_name',$lecturer);
-        $classes->setAttribute('course_id',session('course'));
-        $classes->setAttribute('course_year',session('year'));
-        $classes->setAttribute('course_group',session('group'));
-        $classes->setAttribute('module_id',$module_id);
+        $course = Courses::find(session('course'));
+        $faculty_name = $course->faculty_name;
+        return Lecturers::where('faculty_name',$faculty_name)->get();
+    }
 
-
-        $success = $classes->save();
-        if($success){
+    public function checkIfSessionTaken($week_day, $start_time, $end_time): bool
+    {
+        $course_id = session('course');
+        $course_year = session('year');
+        $course_group = session('group');
+    
+        // Get existing classes for the specified course, year, and group
+        $existingClasses = Classes::where('course_id', $course_id)
+            ->where('course_year', $course_year)
+            ->where('course_group', $course_group)
+            ->get();
+    
+        // Check for overlapping time ranges
+        $overlappingRecords = $existingClasses->filter(function ($class) use ($week_day, $start_time, $end_time) {
+            return $class->day_of_week === $week_day &&
+                (($class->start_time > $start_time && $class->start_time < $end_time) ||
+                ($class->end_time > $start_time && $class->end_time < $end_time) ||
+                ($class->start_time <= $start_time && $class->end_time >= $end_time));
+        });
+    
+        if ($overlappingRecords->isNotEmpty()) {
+            session()->flash('success_message', 'Creation failed! There is already a session scheduled for the specified time interval.');
             return true;
         }
         return false;
     }
+ 
+
+        public function addSession($week_day, $start_time, $end_time, $module, $venue, $lecturer, $session_type): bool
+        {
+            $course_id = session('course');
+            $course_year = session('year');
+            $course_group = session('group');
+        
+            if($this->checkIfSessionTaken($week_day, $start_time, $end_time)){
+                return false;
+            }
+        
+            // Insert the new record.
+            $modules = Modules::where('module_name', $module)->first();
+            $module_id = $modules->module_id;
+        
+            $classes = new Classes();
+            $classes->setAttribute('module_name', $module);
+            $classes->setAttribute('session_type', $session_type);
+            $classes->setAttribute('day_of_week', $week_day);
+            $classes->setAttribute('start_time', $start_time);
+            $classes->setAttribute('end_time', $end_time);
+            $classes->setAttribute('room_name', $venue);
+            $classes->setAttribute('lecturer_name', $lecturer);
+            $classes->setAttribute('course_id', $course_id);
+            $classes->setAttribute('course_year', $course_year);
+            $classes->setAttribute('course_group', $course_group);
+            $classes->setAttribute('module_id', $module_id);
+        
+            $success = $classes->save();
+        
+            if ($success) {
+                return true;
+            }
+        
+            session()->flash('success_message', 'Class session creation failed.');
+            return false;
+        }
+        
+
 
     public function staffAccount()
     {

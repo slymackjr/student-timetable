@@ -24,13 +24,13 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+              {{-- <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{session('name')}}<i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
@@ -101,9 +101,9 @@
         <div class="row">
           <div class="col-md-12">
             <h4>Edit Class Session</h4>
-            @if(!is_null(session('success')))  
+            @if(!is_null(session('success_message')))  
             <!-- Alert to be displayed -->
-            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success_message')}}</strong></p>
 
             <!-- Add this script at the end of the body tag -->
             <script>
@@ -172,7 +172,20 @@
                               @endif
                             </select>
                         </div>
-                      </div>                      
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Session Type</label>
+                        <div class="col-sm-5">
+                              <select class="form-select" name="session_type" required>
+                                <option value="@if($session_type){{$session_type}}@endif" disabled selected>@if($session_type){{$session_type}}@else  Select a Session Type @endif</option>
+                                <option value="Lecture" class="h5">Lecturer</option>
+                                <option value="Tutorial" class="h5">Tutorial</option>
+                              </select>
+                              @error('session_type')
+                              <span class="text-center text-danger">{{$message}}</span>
+                              @enderror
+                          </div>
+                        </div>                           
                       <div class="row mb-3">
                           <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
                           <div class="col-sm-5">
