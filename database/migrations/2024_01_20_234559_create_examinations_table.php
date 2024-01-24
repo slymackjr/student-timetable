@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('examinations', function (Blueprint $table) {
             $table->string('exam_id')->primary();
             $table->string('course_id');
-            $table->foreign('course_id')->references('course_id')->on('university');
             $table->string('exam_date');
             $table->string('day_of_week');
             $table->string('start_time');
             $table->string('end_time');
             $table->string('exam_location');
+
+            $table->foreign('course_id')->references('course_id')->on('courses');
         });
     }
 

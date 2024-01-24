@@ -48,42 +48,50 @@ class StudentModel extends Model
     return false;
 }
 
+    public function studentAccount(): bool
+    {
+         // Retrieve the session value
+         $regno = session('regno');
+
+         // Check if the session value exists
+         if ($regno) {
+             // Session value exists, retrieve the student
+             $student = Student::where('registration_number', $regno)->first();
+ 
+             // Check if the student exists
+             if ($student) {
+                 // Set session values
+                 session(['regno' => $student->registration_number]);
+                 session(['course' => $student->course]);
+                 session(['year' => $student->study_year]);
+                 session(['group' => $student->study_group]);
+                 session(['faculty' => $student->faculty]);
+                 session(['department' => $student->department]);
+                 session(['gender' => $student->gender]);
+                 session(['email' => $student->email]);
+                 session(['password' => $student->password]);
+                 session(['name' => $student->name]);
+                 session::save();
+                 return true;
+             }
+             return false;
+         }
+         return false;
+    }
+
     public function studentTimetable()
     {
-        // Retrieve the session value
-        $regno = session('regno');
-
-        // Check if the session value exists
-        if ($regno) {
-            // Session value exists, retrieve the student
-            $student = Student::where('registration_number', $regno)->first();
-
-            // Check if the student exists
-            if ($student) {
-                // Set session values
-                session(['regno' => $student->registration_number]);
-                session(['course' => $student->course]);
-                session(['year' => $student->study_year]);
-                session(['group' => $student->study_group]);
-                session(['faculty' => $student->faculty]);
-                session(['department' => $student->department]);
-                session(['gender' => $student->gender]);
-                session(['email' => $student->email]);
-                session(['password' => $student->password]);
-                session(['name' => $student->name]);
-                session::save();
+       if($this->studentAccount()){
                 // Retrieve classes for the current day
                 return Classes::where('day_of_week', date('l'))
                     ->where('course_year', session('year'))
                     ->where('course_group', session('group'))
                     ->where('course_id', session('course'))
+                    ->orderBy('start_time')
+                    ->orderBy('end_time', 'desc')
                     ->get();
             }
-        }
-
-        // Handle the case where the session value or student doesn't exist
-        // (e.g., redirect or show an error message)
-        // You may want to return a default response or handle the situation based on your requirements.
+       
     }
 
     public function WeekTimetable()

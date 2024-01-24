@@ -23,14 +23,14 @@
         </button>
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
-            <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+            <div class="input-group text-white">
+             {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{session('name')}}<i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
@@ -52,7 +52,7 @@
               <div class="text-muted small fw-bold text-uppercase px-3">CORE</div>
             </li>
             <li>
-              <a href="{{route('home-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('home-staff')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                 <span>Dashboard</span>
               </a>
@@ -80,7 +80,7 @@
               </div>
             </li>
             <li>
-              <a href="{{route('profile-staff')}}" class="nav-link px-3">
+              <a href="{{route('profile-staff')}}" class="nav-link px-3 active">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile</span>
               </a>
@@ -126,8 +126,8 @@
               <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">    
                   <img src="img/lable.jpg" alt="Profile" class="rounded-circle img-fluid w-50 w-50">
-                  <h2>{{session('name')}}</h2>
-                  <h3>{{session('job_title')}}</h3>
+                  <h2 class="display-7 fw-bold text-primary">{{ session('name') }}</h2>
+                  <h3 class="text-muted">{{ session('job_title') }}</h3>                  
                   <div class="social-links mt-2">
                     <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                     <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -154,37 +154,47 @@
                   </ul>
                   <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                      <h5 class="card-title">Profile Details</h5>
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5 h5">Full Name</div>
-                        <div class="col-lg-9 col-md-8">{{session('name')}}</div>
+                      <h5 class="card-title display-6 mb-4 text-primary">Profile Details</h5>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Full Name</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('name') }}</div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">university</div>
-                        <div class="col-lg-9 col-md-8">Institute Of Finance Management</div>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">University</div>
+                          <div class="col-lg-9 col-md-8 h6">Institute Of Finance Management</div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">Job</div>
-                        <div class="col-lg-9 col-md-8">{{session('job_title')}}</div>
-                      </div>    
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">Department</div>
-                        <div class="col-lg-9 col-md-8">{{session('staff_department')}}</div>
-                      </div>   
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">Faculty</div>
-                        <div class="col-lg-9 col-md-8">{{session('staff_faculty')}}</div>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Job</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('job_title') }}</div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">Staff ID</div>
-                        <div class="col-lg-9 col-md-8">{{session('staff_id')}}</div>
-                      </div>   
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 label h5">Email</div>
-                        <div class="col-lg-9 col-md-8">{{session('email')}}</div>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Department</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('staff_department') }}</div>
                       </div>
-                        <br>
-                    </div>   
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Faculty</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('staff_faculty') }}</div>
+                      </div>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Staff ID</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('staff_id') }}</div>
+                      </div>
+                  
+                      <div class="row mb-3">
+                          <div class="col-lg-3 col-md-4 label h6 text-muted">Email</div>
+                          <div class="col-lg-9 col-md-8 h6">{{ session('email') }}</div>
+                      </div>
+                  
+                      <br>
+                  </div>
+                  
+                   
                     <div class="tab-pane fade profile-edit pt-3" id="profile-edit">   
                       <!-- Profile Edit Form -->
                       <form method="post" action="{{route('update-account')}}">

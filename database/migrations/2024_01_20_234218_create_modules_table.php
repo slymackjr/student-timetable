@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('module_id')->primary();
             $table->string('module_name');
             $table->string('course_id');
-            $table->foreign('course_id')->references('course_id')->on('university');
+            $table->string('course_year');
+            $table->foreign('course_id')->references('course_id')->on('courses');
         });
     }
 

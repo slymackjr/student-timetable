@@ -24,13 +24,13 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+              {{-- <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{session('name')}}<i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{route('profile-student')}}">{{session('regno')}}</a></li>
                 <li><a class="dropdown-item" href="{{route('logout-student')}}">Logout</a></li>
@@ -96,57 +96,54 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-success text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-book text-white display-4 mb-3"></i>
                 <h5 class="card-title">Class Timetable</h5>
               </div>
-              <div class="card-footer d-flex">
-                <a href="{{ route('week-classes') }}" class="nav-link text-white">
+              <a href="{{route('week-classes')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
                   View Details
-                </a>
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right text-white"></i>
-                </span>
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>        
+          <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card bg-danger text-white h-100">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-box-arrow-right display-4 mb-3"></i>
+                <h5 class="card-title">Logout</h5>
               </div>
+              <a href="{{route('logout-student')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  Here
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
-                   
-          {{-- <div class="col-md-4 mb-3">
-            <div class="card bg-secondary text-white h-100">
-              <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <i class="bi bi-calendar text-white display-4 mb-3"></i>
-                <h5 class="card-title">Exam Timetable</h5>
-              </div>
-              <div class="card-footer d-flex">
-                <a href="{{ route('exam-sessions') }}" class="nav-link text-white">
-                  View Details
-                </a>
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right text-white"></i>
-                </span>
-              </div>
-            </div>
-          </div> --}}
-                    
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-4 col-md-6 mb-3">
             <div class="card bg-warning text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-person text-white display-4 mb-3"></i>
                 <h5 class="card-title">Personal Details</h5>
               </div>
-              <div class="card-footer d-flex justify-content-between">
-                <a href="#" class="nav-link text-white">
+              <a href="{{route('profile-student')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
                   View Details
-                </a>
-                <span>
-                  <i class="bi bi-chevron-right text-white"></i>
-                </span>
-              </div>
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
             </div>
-          </div>              
-          
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12 mb-3">

@@ -42,6 +42,7 @@ Route::get('/edit-session', [StaffController::class, 'showCourseGroupTimetable']
 Route::post('/edit-session', [StaffController::class, 'updateCourseGroupTimetable'])->name('update-session')->middleware('staff.guard');
 Route::get('/add-session', [StaffController::class, 'showCreateClass'])->name('add-session')->middleware('staff.guard');
 Route::post('/add-session', [StaffController::class, 'createClass'])->name('create-class')->middleware('staff.guard');
+Route::get('/class-sessions', [StaffController::class, 'showClassSessions'])->name('show-class-sessions')->middleware('staff.guard');
 Route::get('/profile-staff', [StaffController::class, 'showProfile'])->name('profile-staff')->middleware('staff.guard');
 Route::post('/profile-staffs', [StaffController::class, 'updateProfile'])->name('update-account')->middleware('staff.guard');
 Route::post('/staff-profile', [StaffController::class, 'updatePassword'])->name('update-password')->middleware('staff.guard');

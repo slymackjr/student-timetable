@@ -24,13 +24,13 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+              {{-- <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i></a>
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{session('name')}}<i class="bi bi-person-fill"></i></a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{route('profile-staff')}}">{{session('email')}}</a></li>
                 <li>
@@ -102,9 +102,9 @@
           <div class="col-md-12">
             <h4>Create New Class Session</h4>
           </div>
-          @if(!is_null(session('success')))  
+          @if(!is_null(session('success_message')))  
           <!-- Alert to be displayed -->
-          <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
+          <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success_message')}}</strong></p>
 
           <!-- Add this script at the end of the body tag -->
           <script>
@@ -137,13 +137,13 @@
                           <div class="col-sm-5">
                                 <select class="form-select" name="week_day" required>
                                   <option value="" disabled selected>Select a week day</option>
-                                  <option value="Monday">Monday</option>
-                                  <option value="Tuesday">Tuesday</option>
-                                  <option value="Wednesday">Wednesday</option>
-                                  <option value="Thursday">Thursday</option>
-                                  <option value="Friday">Friday</option>
-                                  <option value="Saturday">Saturday</option>
-                                  <option value="Sunday">Sunday</option>
+                                  <option value="Monday" class="h5">Monday</option>
+                                  <option value="Tuesday" class="h5">Tuesday</option>
+                                  <option value="Wednesday" class="h5">Wednesday</option>
+                                  <option value="Thursday" class="h5">Thursday</option>
+                                  <option value="Friday" class="h5">Friday</option>
+                                  <option value="Saturday" class="h5">Saturday</option>
+                                  <option value="Sunday" class="h5">Sunday</option>
                                 </select>
                                 @error('week_day')
                                 <span class="text-center text-danger">{{$message}}</span>
@@ -176,7 +176,7 @@
                                   <option value="" disabled selected>Select a module</option>
                                   @if($modules)
                                   @foreach($modules as $module)
-                                  <option value="{{$module['module_name']}}">{{$module['module_name']}}</option>
+                                  <option value="{{$module['module_name']}}" class="h5">{{$module['module_name']}}</option>
                                   @endforeach
                                   @endif
                                 </select>
@@ -184,7 +184,20 @@
                                 <span class="text-center text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-                          </div>                      
+                          </div>  
+                          <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Session Type</label>
+                            <div class="col-sm-5">
+                                  <select class="form-select" name="session_type" required>
+                                    <option value="" disabled selected>Select a Session Type</option>
+                                    <option value="Lecture" class="h5">Lecturer</option>
+                                    <option value="Tutorial" class="h5">Tutorial</option>
+                                  </select>
+                                  @error('session_type')
+                                  <span class="text-center text-danger">{{$message}}</span>
+                                  @enderror
+                              </div>
+                            </div>                                     
                           <div class="row mb-3">
                               <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Venue</label>
                               <div class="col-sm-5">
@@ -192,7 +205,7 @@
                                     <option value="" disabled selected>Select a venue</option>
                                     @if($venues)
                                     @foreach($venues as $venue)
-                                    <option value="{{$venue['venue_name']}}">{{$venue['venue_name']}}</option>
+                                    <option value="{{$venue['venue_name']}}" class="h5">{{$venue['venue_name']}}</option>
                                     @endforeach
                                     @endif
                                   </select>
@@ -202,14 +215,21 @@
                               </div>
                           </div>
                           <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label fw-bolder">Lecturer's name</label>
+                            <label for="inputText" class="col-sm-2 col-form-label fw-bolder">Lecturer's name</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="lecturer" required>
+                                <select class="form-select" name="lecturer" required>
+                                  <option value="" disabled selected>Select Lecturer's name</option>
+                                  @if($lecturers)
+                                  @foreach($lecturers as $lecturer)
+                                  <option value="{{$lecturer['name']}}" class="h5">{{$lecturer['name']}}</option>
+                                  @endforeach
+                                  @endif
+                                </select>
                                 @error('lecturer')
                                 <span class="text-center text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-                          </div>                                               
+                          </div>                                                
                           <div class="row mb-3">
                               <div class="col-sm-5 m-auto">
                                   <button type="submit" class="btn btn-primary fw-bolder" name="submit">Add Session</button>

@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classes extends Model
+class Courses extends Model
 {
     use HasFactory;
-    /**
+     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'classes';
+    protected $table = 'courses';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'class_id';
+    protected $primaryKey = 'course_id';
 
     /**
      * Indicates if the model's ID is auto-incrementing.
@@ -42,18 +42,11 @@ class Classes extends Model
      * @var array
      */
     protected $fillable = [
-        'class_id',
-        'module_id',
-        'module_name',
-        'session_type',
         'course_id',
-        'course_year',
-        'course_group',
-        'lecturer_name',
-        'day_of_week',
-        'start_time',
-        'end_time',
-        'room_name',
+        'course_name',
+        'course_years',
+        'department_name',
+        'faculty_name',
     ];
 
     /**
@@ -62,18 +55,11 @@ class Classes extends Model
      * @var array
      */
     protected $casts = [
-        'class_id' =>'string',
-        'module_id' => 'string',
-        'module_name' => 'string',
-        'session_type' => 'string',
         'course_id' => 'string',
-        'course_year' => 'string',
-        'course_group' => 'string',
-        'lecturer_name' => 'string',
-        'day_of_week' => 'string',
-        'start_time' => 'string',
-        'end_time' => 'string',
-        'room_name' => 'string',
+        'course_name' => 'string',
+        'course_years' => 'string',
+        'department_name' => 'string',
+        'faculty_name' => 'string',
     ];
 
     /**
@@ -82,14 +68,4 @@ class Classes extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    public static $rules = [
-        'module' => 'required',
-        'session_type' => 'required',
-        'lecturer' => 'required',
-        'week_day' => 'required',
-        'start_time' => 'required',
-        'end_time' => 'required',
-        'venue' => 'required',
-    ];
 }

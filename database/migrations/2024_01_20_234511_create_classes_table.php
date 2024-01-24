@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('class_id');
             $table->string('module_id');
             $table->string('module_name');
+            $table->string('session_type');
             $table->string('course_id');
-            $table->foreign('course_id')->references('course_id')->on('university');
             $table->string('course_year');
             $table->string('course_group');
             $table->string('lecturer_name');
@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('start_time');
             $table->string('end_time');
             $table->string('room_name');
+
+            $table->foreign('course_id')->references('course_id')->on('courses');
+            $table->foreign('lecturer_name')->references('name')->on('lecturers');
+
         });
     }
 

@@ -20,6 +20,11 @@ return new class extends Migration
             $table->string('gender');
             $table->string('email')->primary();
             $table->string('password');
+
+            // Foreign key constraint
+            $table->foreign('staff_department')->references('department_name')->on('departments');
+            // Foreign key constraint
+            $table->foreign('staff_faculty')->references('faculty_name')->on('faculties');
         });
     }
 
