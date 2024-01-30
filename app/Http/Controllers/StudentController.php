@@ -26,7 +26,7 @@ class StudentController extends Controller
             return redirect()->route('home-student');
         } else {
             // Login failed
-            return redirect()->route('login-staff')->with('error', 'Incorrect Credentials!');
+            return redirect()->route('login-student')->with('error', 'Incorrect Credentials!');
         }
     }
 
