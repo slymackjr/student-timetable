@@ -67,12 +67,12 @@
                 <span>Classes Timetable</span>
               </a>
             </li>
-            {{-- <li>
-              <a href="{{route('exams-staff')}}" class="nav-link px-3">
+            <li>
+              <a href="{{route('notices')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
-                <span>Exams Timetable</span>
+                <span>Notices</span>
               </a>
-            </li> --}}
+            </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">

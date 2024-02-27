@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\View\View;
+use App\Models\NoticeModel;
 use App\Models\StudentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,21 +41,20 @@ class StudentController extends Controller
 
     public function showTimetable(): View
     {
+        $notice = new NoticeModel();
         $student = new StudentModel();
-        $today = $student->studentTimetable();
-        $date = date('Y-m-d l');
         return view('student.index-student',[
-            'today' => $today,
-            'date' => $date
+            'today' => $student->studentTimetable(),
+            'date' => date('Y-m-d l'),
+            'notices' => $notice->showNotices(),
         ]);
     }
 
     public function weekTimetable(): View
     {
         $student = new StudentModel();
-        $week = $student->WeekTimetable();
         return view('student.week-classes',[
-            'classesData' => $week
+            'classesData' => $student->WeekTimetable()
         ]);
     }
 

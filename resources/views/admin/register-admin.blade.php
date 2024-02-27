@@ -21,13 +21,13 @@
                     <div class="card-body p-md-5">
                       <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                          <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Staff Register here</p>
+                          <p class="text-center h1 fw-bold mb-3 mt-1">Staff Register here</p>
                           @if(session('error'))
-                          <p class="text-center text-danger mb-5 mx-1 mx-md-4 mt-4">{{ session('error') }}!</p>
+                          <p class="text-center text-danger mb-3 mt-3">{{ session('error') }}!</p>
                           @endif
                           <form class="mx-1 mx-md-4" method="POST" action="{{route('register-staff-method')}}">
                             @csrf
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="text" id="form3Example1c" name="name" class="form-control" placeholder="Your Name"/>
@@ -37,7 +37,7 @@
                               </div>
                             </div>
 
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="text" id="form3Example1c" name="staff_id" class="form-control" placeholder="Your Job's ID"/>
@@ -47,7 +47,7 @@
                               </div>
                             </div>
 
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-house fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="text" id="form3Example1c" name="job_title" class="form-control" placeholder="Your Job Title"/>
@@ -57,7 +57,7 @@
                               </div>
                             </div>
 
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-house fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                   <select id="form3Example1c" name="staff_department" class="form-select">
@@ -80,7 +80,7 @@
                           </div>
                           
 
-                          <div class="d-flex flex-row align-items-center mb-4">
+                          <div class="d-flex flex-row align-items-center mb-3">
                             <i class="fas fa-house fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <select id="form3Example1c" name="staff_faculty" class="form-select">
@@ -98,7 +98,7 @@
                         </div>
                         
 
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-person fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <select name="gender" id="form3Example1c" name="gender" class="form-control">
@@ -109,7 +109,7 @@
                               </div>
                             </div>
           
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="email" id="form3Example3c" name="email" class="form-control" placeholder="Your email"/>
@@ -119,7 +119,7 @@
                               </div>
                             </div>
           
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="password" id="form3Example4c" name="password" class="form-control" placeholder="Password"/>
@@ -129,7 +129,7 @@
                               </div>
                             </div>
           
-                            <div class="d-flex flex-row align-items-center mb-4">
+                            <div class="d-flex flex-row align-items-center mb-3">
                               <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
                                 <input type="password" id="form3Example4cd" name="password_confirmation" class="form-control" placeholder="Confirm Password"/>
@@ -139,18 +139,18 @@
                               </div>
                             </div>
           
-                            <div class="form-check d-flex justify-content-center mb-5">
+                            <div class="form-check d-flex justify-content-center mb-2">
                               <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
                               <label class="form-check-label" for="form2Example3">
                                 I agree all statements in <a class="no-link-line" href="#!">Terms of service</a>
                               </label>
                             </div>
           
-                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                            <div class="d-flex justify-content-center mb-2 mb-lg-4">
                               <button type="submit" class="btn btn-primary btn-lg">Register</button>
                             </div>
 
-                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                            <div class="d-flex justify-content-center mb-2 mb-lg-4">
                               <p class="small mb-0">Already have an account? <a class="no-link-line" class="no-link-line" href="{{route('login-staff')}}">login at your account</a></p>
                             </div>
           

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NoticeModel;
 use App\Models\StudentModel;
-use DateTime;
-use Carbon\Carbon;
 use App\Models\Staff;
 use App\Models\Classes;
 use Illuminate\View\View;
 use App\Models\StaffModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class StaffController extends Controller
 {
@@ -19,7 +17,7 @@ class StaffController extends Controller
     public function registerStaff(Request $request)
     {
      
-        $formFields = $request->validate(Staff::$rules);
+        $request->validate(Staff::$rules);
         $email = $request->input('email');
         $password = $request->input('password');
         $staff_id = $request->input('staff_id');
@@ -28,7 +26,6 @@ class StaffController extends Controller
         $name = $request->input('name');
         $gender = $request->input('gender');
         $job_title = $request->input('job_title');
-        $confirmPassword = $request->input('password_confirmation');
 
         $staff = new StaffModel();
         $message = $staff->registerStaff($name, $staff_id, $job_title, $staff_department, $staff_faculty, $gender, $email,$password);
@@ -91,8 +88,7 @@ class StaffController extends Controller
     {
         session(['group' => request('group')]);
         $staff = new StaffModel();
-        $timetable = $staff->courseGroupTimetable();
-        return view('admin.group-session',['timetable'=> $timetable]);
+        return view('admin.group-session',['timetable'=> $staff->courseGroupTimetable()]);
     }
 
     public function deleteGroupSession(Request $request): View
@@ -100,8 +96,7 @@ class StaffController extends Controller
         $classId = $request->input('class_id');
         $staff = new StaffModel();
         $staff->deleteGroupTimetable($classId);
-        $timetable = $staff->courseGroupTimetable();
-        return view('admin.group-session',['timetable'=> $timetable]);
+        return view('admin.group-session',['timetable'=> $staff->courseGroupTimetable()]);
     }
 
     public function showCourseGroupTimetable(): View
@@ -124,8 +119,8 @@ class StaffController extends Controller
             'course_group'=> $groupTimetable->course_group,
             'lecturer_name'=> $groupTimetable->lecturer_name,
             'day_of_week'=> $groupTimetable->day_of_week,
-            'start_time'=> $start_time,
-            'end_time'=> $end_time,
+            'start_time'=> $start_time->format('H:i'),
+            'end_time'=> $end_time->format('H:i'),
             'room_name'=> $groupTimetable->room_name,
             'venues' => $venues,
             'modules' => $modules
@@ -188,20 +183,17 @@ class StaffController extends Controller
     public function showCreateClass(): View
     {
         $staff = new StaffModel();
-        $venues = $staff->showVenues();
-        $modules  = $staff->showModules();
-        $lecturers  = $staff->showLecturers();
         return view('admin.add-session',[
-            'venues' => $venues,
-            'modules' => $modules,
-            'lecturers' => $lecturers
+            'venues' => $staff->showVenues(),
+            'modules' => $staff->showModules(),
+            'lecturers' => $staff->showLecturers()
         ]);
     }
 
     public function createClass(Request $request): View
     {
     
-        $formFields = $request->validate(Classes::$rules);
+        $request->validate(Classes::$rules);
         $week_day = $request->input('week_day');
         $start_time = $request->input('start_time');
         $end_time = $request->input('end_time');
@@ -223,9 +215,8 @@ class StaffController extends Controller
     public function showClassSessions(): View
     {
         $student = new StudentModel();
-        $week = $student->WeekTimetable();
         return view('admin.week-classes',[
-            'classesData' => $week
+            'classesData' => $student->WeekTimetable()
         ]);
     }
 
@@ -233,7 +224,6 @@ class StaffController extends Controller
     {
         $staff = new StaffModel();
         $staff->staffAccount();
-
         return view('admin.profile-admin');
     }
 
@@ -255,11 +245,9 @@ class StaffController extends Controller
              if (!is_null($value)) {
                  $staff->$key = $value;
              }
-         }
- 
+         } 
          // Save the changes
-         $success = $staff->save();
- 
+         $success = $staff->save(); 
          if($success){
              session()->flash('success', 'Profile updated!.');
              return $this->showProfile();
@@ -287,6 +275,48 @@ class StaffController extends Controller
         }
         session()->flash('success', 'wrong current password!.');
         return $this->showProfile();
+    }
+
+    public function showNotice(): View
+    {
+        $notice = new NoticeModel();
+        return view('admin.notice-admin',[
+            'notices' => $notice->showNotices()
+        ]); 
+    }
+
+    public function viewNotice(): View
+    {
+        $notice = new NoticeModel();
+        return view('admin.show-notices',[
+            'notices' => $notice->showNotices()
+        ]); 
+    }
+
+    public function showCreateNotice(): View{
+        return view('admin.create-notice');
+    }
+
+    public function createNotice(Request $request): View
+    {
+        $notice_message = $request->input('notice_message');
+        $due_date = $request->input('due_date');
+
+        $notice = new NoticeModel();
+        $success = $notice->createNewNotice($notice_message,$due_date);
+        if($success){
+            session()->flash('success_message', 'Notice created!.');
+            return $this->showCreateNotice();
+        }
+        return $this->showCreateNotice();
+    }
+
+    public function deleteNotice(Request $request): View
+    {
+        $notice_id = $request->input('notice_id');
+        $notice = new NoticeModel();
+        $notice->deleteNotice($notice_id);
+        return $this->showNotice();
     }
 
 }

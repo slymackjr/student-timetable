@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-             {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+            {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
               <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
@@ -62,13 +62,13 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="{{route('classes-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
             <li>
-              <a href="{{route('notices')}}" class="nav-link px-3">
+              <a href="{{route('notices')}}" class="nav-link px-3  active">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Notices</span>
               </a>
@@ -100,103 +100,39 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h4>Course 
-              @if(session('course'))
-              {{session('course')}} 
-              @endif
-              @if(session('year'))
-              {{session('year')}} 
-              @endif
-              GROUP 
-              @if(session('group'))
-              {{session('group')}}
-              @endif
-               Classes TimeTable
-            </h4>
-            @if(!is_null(session('success')))  
-            <!-- Alert to be displayed -->
-            <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
-
-            <!-- Add this script at the end of the body tag -->
-            <script>
-                // Function to hide the alert after 2 seconds
-                function hideAlert() {
-                    var alertDiv = document.getElementById('myAlert');
-                    alertDiv.style.display = 'none';
-                }
-
-                // Show the alert
-                document.addEventListener('DOMContentLoaded', function () {
-                    setTimeout(hideAlert, 2000);
-                });
-            </script>
-            @endif
+            <h4>Dashboard</h4>
           </div>
         </div>
-        <div class="row pb-5">
+        <div class="row">
           <div class="col-md-12 mb-3">
             <div class="card">
               <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span> Classes TimeTable
+                <span><i class="bi bi-chat me-2"></i></span> Notices
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <div class="pb-3">
-                    <a href="{{route('year-group',['year' => session('year')])}}">
-                      <button type="button" name="cid" class="btn btn-outline-danger"><i class="bi bi-arrow-left me-2"></i>Groups</button>
+                <div class="pb-3 d-flex justify-content-between">
+                    <a href="{{route('notices')}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left me-2"></i>Notices</button>
                     </a>
                   </div>
-                  <div class="pb-3  d-flex justify-content-between">
-                    <a href="{{route('add-session')}}">
-                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-plus me-2"></i>Add Period</button>
-                    </a>
-                    <a href="{{route('show-class-sessions')}}">
-                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-calendar me-2"></i>Class Sessions</button>
-                    </a>
+                  <div class="row d-flex justify-content-center">
+                    @if($notices)
+                        @php
+                            $alertTypes = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
+                            $numNotices = count($notices);
+                        @endphp
+                
+                        @foreach ($notices as $index => $notice)
+                            @php $type = $alertTypes[$index % count($alertTypes)]; @endphp
+                            <div class="alert alert-{{ $type }} m-1" role="alert" style="width: 20rem;">
+                                <p>{{ $notice->notice_message }}</p>
+                                <hr>
+                                <p class="mb-0"><span class="fw-bolder">Due Date: </span>{{ $notice->due_date->format('Y-m-d h:i A') }}</p>
+
+                            </div>
+                        @endforeach
+                    @endif
                   </div>
-                  <table
-                    id="example"
-                    class="table table-striped data-table"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Day</th>
-                        <th>Time Start</th>
-                        <th>Time End</th>
-                        <th>Module Code</th>
-                        <th>Module Name</th>
-                        <th>Session Type</th>
-                        <th>Venue</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @if($timetable)
-                      @foreach ($timetable as $table)
-                      <tr>
-                        <td>{{$table->day_of_week}}</td>
-                        <td>{{$table->start_time->format('h:i A')}}</td>
-                        <td>{{$table->end_time->format('h:i A')}}</td>
-                        <td>{{$table->module_id}}</td>
-                        <td>{{$table->module_name}}</td>
-                        <td>{{$table->session_type}}</td>
-                        <td>{{$table->room_name}}</td>
-                        <td>
-                          <a href="{{route('edit-session',['class_id' => $table->class_id])}}">
-                            <button type="button" name="user" class="btn btn-outline-secondary">View Details</button>
-                          </a>
-                          <form method="POST" action="{{route('delete-session')}}"> 
-                            @csrf
-                            <button type="submit" class="btn btn-outline-success">Delete Details</button>
-                            <input type="hidden" name="class_id" value="{{$table->class_id}}">
-                          </form>   
-                        </td>
-                      </tr>
-                      @endforeach
-                      @endif
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>

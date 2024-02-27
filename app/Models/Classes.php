@@ -71,8 +71,8 @@ class Classes extends Model
         'course_group' => 'string',
         'lecturer_name' => 'string',
         'day_of_week' => 'string',
-        'start_time' => 'string',
-        'end_time' => 'string',
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
         'room_name' => 'string',
     ];
 

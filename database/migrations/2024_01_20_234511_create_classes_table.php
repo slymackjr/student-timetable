@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('course_group');
             $table->string('lecturer_name');
             $table->string('day_of_week');
-            $table->string('start_time');
-            $table->string('end_time');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->string('room_name');
 
             $table->foreign('course_id')->references('course_id')->on('courses');

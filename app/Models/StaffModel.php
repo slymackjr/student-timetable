@@ -110,7 +110,7 @@ class StaffModel extends Model
 
     public function showGroups()
     {
-        return Groups::where('course_id',session('course'))
+          return Groups::where('course_id',session('course'))
                         ->where('course_year',session('year'))
                         ->orderBy('group_name', 'asc')
                         ->get();

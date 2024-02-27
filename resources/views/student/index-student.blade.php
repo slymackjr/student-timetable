@@ -185,46 +185,35 @@
             </div>
           </div>
         </div>
-        {{-- <div class="row">
+        <div class="row">
           <div class="col-md-12 mb-3">
             <div class="card">
               <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span> Exams Today Fri-05-Jan-2024
-              </div>
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <span><i class="bi bi-chat me-2"></i></span> Notices
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table
-                    id="example"
-                    class="table table-striped"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Module Code</th>
-                        <th>Module Name</th>
-                        <th>Starts</th>
-                        <th>Ends</th>
-                        <th>Venue</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>CSU07801</td>
-                        <td>System Architect</td>
-                        <td>12:00PM</td>
-                        <td>2:00PM</td>
-                        <td>MK5</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                  <div class="row d-flex justify-content-center">
+                    @if($notices)
+                        @php
+                            $alertTypes = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
+                            $numNotices = count($notices);
+                        @endphp
+                
+                        @foreach ($notices as $index => $notice)
+                            @php $type = $alertTypes[$index % count($alertTypes)]; @endphp
+                            <div class="alert alert-{{ $type }} m-1" role="alert" style="width: 20rem;">
+                                <p>{{ $notice->notice_message }}</p>
+                                <hr>
+                                <p class="mb-0"><span class="fw-bolder">Due Date: </span>{{ $notice->due_date->format('Y-m-d h:i A') }}</p>
+
+                            </div>
+                        @endforeach
+                    @endif
+                  </div>
               </div>
             </div>
           </div>
-        </div> --}}
+        </div>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>

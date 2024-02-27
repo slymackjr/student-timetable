@@ -62,13 +62,13 @@
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
             </li>
             <li>
-              <a href="{{route('classes-staff')}}" class="nav-link px-3 active">
+              <a href="{{route('classes-staff')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
                 <span>Classes Timetable</span>
               </a>
             </li>
             <li>
-              <a href="{{route('notices')}}" class="nav-link px-3">
+              <a href="{{route('notices')}}" class="nav-link px-3  active">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
                 <span>Notices</span>
               </a>
@@ -100,19 +100,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h4>Course 
-              @if(session('course'))
-              {{session('course')}} 
-              @endif
-              @if(session('year'))
-              {{session('year')}} 
-              @endif
-              GROUP 
-              @if(session('group'))
-              {{session('group')}}
-              @endif
-               Classes TimeTable
-            </h4>
+            <h4>University Public Notices</h4>
             @if(!is_null(session('success')))  
             <!-- Alert to be displayed -->
             <p class="text-center alert alert-success" id="myAlert"><strong>{{session('success')}}</strong></p>
@@ -137,21 +125,16 @@
           <div class="col-md-12 mb-3">
             <div class="card">
               <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span> Classes TimeTable
+                <span><i class="bi bi-table me-2"></i></span> Notices
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <div class="pb-3">
-                    <a href="{{route('year-group',['year' => session('year')])}}">
-                      <button type="button" name="cid" class="btn btn-outline-danger"><i class="bi bi-arrow-left me-2"></i>Groups</button>
-                    </a>
-                  </div>
                   <div class="pb-3  d-flex justify-content-between">
-                    <a href="{{route('add-session')}}">
-                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-plus me-2"></i>Add Period</button>
+                    <a href="{{route('create-notice')}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-plus me-2"></i>Create Notice</button>
                     </a>
-                    <a href="{{route('show-class-sessions')}}">
-                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-calendar me-2"></i>Class Sessions</button>
+                    <a href="{{route('view-notices')}}">
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-chat me-2"></i>Show Notices</button>
                     </a>
                   </div>
                   <table
@@ -160,35 +143,26 @@
                   >
                     <thead>
                       <tr>
-                        <th>Day</th>
-                        <th>Time Start</th>
-                        <th>Time End</th>
-                        <th>Module Code</th>
-                        <th>Module Name</th>
-                        <th>Session Type</th>
-                        <th>Venue</th>
+                        <th>Notice ID</th>
+                        <th>Notice Message</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @if($timetable)
-                      @foreach ($timetable as $table)
+                      @if($notices)
+                      @foreach ($notices as $notice)
                       <tr>
-                        <td>{{$table->day_of_week}}</td>
-                        <td>{{$table->start_time->format('h:i A')}}</td>
-                        <td>{{$table->end_time->format('h:i A')}}</td>
-                        <td>{{$table->module_id}}</td>
-                        <td>{{$table->module_name}}</td>
-                        <td>{{$table->session_type}}</td>
-                        <td>{{$table->room_name}}</td>
+                        <td>{{$notice->notice_id}}</td>
+                        <td>{{$notice->notice_message}}</td>
+                        <td>{{$notice->start_date}}</td>
+                        <td>{{$notice->due_date}}</td>
                         <td>
-                          <a href="{{route('edit-session',['class_id' => $table->class_id])}}">
-                            <button type="button" name="user" class="btn btn-outline-secondary">View Details</button>
-                          </a>
-                          <form method="POST" action="{{route('delete-session')}}"> 
+                          <form method="POST" action="{{route('delete-notice')}}"> 
                             @csrf
                             <button type="submit" class="btn btn-outline-success">Delete Details</button>
-                            <input type="hidden" name="class_id" value="{{$table->class_id}}">
+                            <input type="hidden" name="notice_id" value="{{$notice->notice_id}}">
                           </form>   
                         </td>
                       </tr>

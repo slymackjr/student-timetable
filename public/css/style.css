@@ -45,3 +45,9 @@ button {
   text-decoration: none;
 }
 /* to remove link line on login & register links route end here*/
+
+/* width for card elements on dashboard start here */
+.max-w-280 {
+  max-width: 280px;
+}
+/* width for card elements on dashboard end here */

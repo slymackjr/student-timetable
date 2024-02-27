@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-             {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+            {{--  <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
               <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button> --}}
             </div>
           </form>
@@ -67,12 +67,12 @@
                 <span>Classes Timetable</span>
               </a>
             </li>
-            {{-- <li>
-              <a href="{{route('exams-staff')}}" class="nav-link px-3">
+            <li>
+              <a href="{{route('notices')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
-                <span>Exams Timetable</span>
+                <span>Notices</span>
               </a>
-            </li> --}}
+            </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -111,126 +111,58 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <div class="pb-3">
+                  <div class="pb-3 d-flex justify-content-between">
                     <a href="{{route('group-session',['group' => session('group')])}}">
-                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Classes</button>
+                      <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left me-2"></i>Classes</button>
+                    </a>
+                    <a href="{{route('staff-get-pdf')}}">
+                      <button type="button" name="cid" class="btn btn-outline-info"><i class="bi bi-plus me-2"></i>Export PDF</button>
                     </a>
                   </div>
-
-              {{-- <table class="table table-bordered text-center table-striped">
-                  <thead>
-                      <tr class="bg-light-gray">
-                          <th class="text-uppercase">Time</th>
-                          <th class="text-uppercase">Monday</th>
-                          <th class="text-uppercase">Tuesday</th>
-                          <th class="text-uppercase">Wednesday</th>
-                          <th class="text-uppercase">Thursday</th>
-                          <th class="text-uppercase">Friday</th>
-                          <th class="text-uppercase">Saturday</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @for ($i = 7; $i <= 19; $i++)
-                          <tr>
-                              <td class="align-middle">{{ $i }}:00 - {{ $i + 1 }}:00</td>
-                              @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
-                                  <td>
-                                      @foreach($classesData as $class)
-                                          @if ($class->day_of_week == $day && $class->start_time <= "$i:00" && $class->end_time > "$i:00")
-                                              <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
-                                              <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
-                                              <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
-                                          @endif
-                                      @endforeach
-                                  </td>
-                              @endforeach
-                          </tr>
-                      @endfor
-                  </tbody>
-              </table> --}}
-{{-- 
-              <table class="table table-bordered text-center table-striped">
-                <thead>
-                    <tr class="bg-light-gray">
-                        <th class="text-uppercase">Time</th>
-                        <th class="text-uppercase">Monday</th>
-                        <th class="text-uppercase">Tuesday</th>
-                        <th class="text-uppercase">Wednesday</th>
-                        <th class="text-uppercase">Thursday</th>
-                        <th class="text-uppercase">Friday</th>
-                        <th class="text-uppercase">Saturday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for ($i = 7; $i <= 19; $i++)
-                        <tr>
-                            <td class="align-middle">{{ $i }}:00 - {{ $i + 1 }}:00</td>
-                            @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
-                                <td>
-                                    @foreach($classesData as $class)
-                                        @php
-                                            $startTimeInRange = ($class->start_time >= "$i:00" && $class->start_time < ($i + 1) . ":00");
-                                            $endTimeInRange = ($class->end_time > "$i:00" && $class->end_time <= ($i + 1) . ":00");
-                                        @endphp
-            
-                                        @if ($class->day_of_week == $day && ($startTimeInRange || $endTimeInRange))
-                                            <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
-                                            <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
-                                            <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
-                                        @endif
-                                    @endforeach
-                                </td>
-                            @endforeach
+                  <table class="table table-bordered text-center table-striped">
+                    <thead>
+                        <tr class="bg-light-gray">
+                            <th class="text-uppercase">Time</th>
+                            <th class="text-uppercase">Monday</th>
+                            <th class="text-uppercase">Tuesday</th>
+                            <th class="text-uppercase">Wednesday</th>
+                            <th class="text-uppercase">Thursday</th>
+                            <th class="text-uppercase">Friday</th>
+                            <th class="text-uppercase">Saturday</th>
                         </tr>
-                    @endfor
-                </tbody>
-              </table>  --}}
-              <table class="table table-bordered text-center table-striped">
-                <thead>
-                    <tr class="bg-light-gray">
-                        <th class="text-uppercase">Time</th>
-                        <th class="text-uppercase">Monday</th>
-                        <th class="text-uppercase">Tuesday</th>
-                        <th class="text-uppercase">Wednesday</th>
-                        <th class="text-uppercase">Thursday</th>
-                        <th class="text-uppercase">Friday</th>
-                        <th class="text-uppercase">Saturday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for ($i = 7; $i <= 19; $i++)
-                        <tr>
-                            <td class="align-middle">{{ $i }}:00 - {{ $i + 1 }}:00</td>
-                            @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
-                                <td>
-                                    @foreach($classesData as $class)
-                                        @php
-                                            $classStartTime = strtotime($class->start_time);
-                                            $classEndTime = strtotime($class->end_time);
-                                            $startTimeInRange = ($classStartTime <= strtotime("$i:00:00") && $classEndTime > strtotime("$i:00:00"));
-                                            $endTimeInRange = ($classStartTime < strtotime(($i + 1) . ":00:00") && $classEndTime >= strtotime(($i + 1) . ":00:00"));
-                                        @endphp
-            
-                                        @if ($class->day_of_week == $day && ($startTimeInRange || $endTimeInRange))
-                                            <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
-                                            <div class="margin-10px-top font-size14">{{ $class->start_time }} - {{ $class->end_time }}</div>
-                                            <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
-                                            <div class="font-size13 text-success">{{ $class->room_name }}</div>
-                                        @endif
-                                    @endforeach
-                                </td>
-                            @endforeach
-                        </tr>
-                    @endfor
-                </tbody>
-            </table>
-            
-              </div>
+                    </thead>
+                    <tbody>
+                        @for ($i = 7; $i <= 19; $i++)
+                            <tr>
+                                <td class="align-middle">{{ $i }}:00 - {{ $i + 1 }}:00</td>
+                                @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
+                                    <td>
+                                        @foreach($classesData as $class)
+                                            @php
+                                                $classStartTime = strtotime($class->start_time);
+                                                $classEndTime = strtotime($class->end_time);
+                                                $startTimeInRange = ($classStartTime <= strtotime("$i:00:00") && $classEndTime > strtotime("$i:00:00"));
+                                                $endTimeInRange = ($classStartTime < strtotime(($i + 1) . ":00:00") && $classEndTime >= strtotime(($i + 1) . ":00:00"));
+                                            @endphp
+                
+                                            @if ($class->day_of_week == $day && ($startTimeInRange || $endTimeInRange))
+                                                <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-primary font-size16 xs-font-size13">{{ $class->module_name }}</span>
+                                                <div class="margin-10px-top font-size14">{{ $class->start_time->format('h:i A') }} - {{ $class->end_time->format('h:i A') }}</div>
+                                                <div class="font-size13 text-light-gray">{{ $class->lecturer_name }}</div>
+                                                <div class="font-size13 text-success">{{ $class->room_name }}</div>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endfor
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-  
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>

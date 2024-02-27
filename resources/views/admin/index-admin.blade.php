@@ -67,12 +67,12 @@
                 <span>Classes Timetable</span>
               </a>
             </li>
-            {{-- <li>
-              <a href="{{route('exams-staff')}}" class="nav-link px-3">
+            <li>
+              <a href="{{route('notices')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
-                <span>Exams Timetable</span>
+                <span>Notices</span>
               </a>
-            </li> --}}
+            </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -121,8 +121,8 @@
           </script>
           @endif
         </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 mb-3">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
             <div class="card bg-primary text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-person-fill display-4 mb-3"></i>
@@ -138,7 +138,23 @@
               </a>
             </div>
           </div>                   
-          <div class="col-lg-4 col-md-6 mb-3">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
+            <div class="card bg-info text-white h-100">
+              <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <i class="bi bi-exclamation-diamond-fill display-4 mb-3"></i>
+                <h5 class="card-title">Notices</h5>
+              </div>
+              <a href="{{route('notices')}}" class="nav-link text-white">
+                <div class="card-footer d-flex">
+                  View Details
+                  <span class="ms-auto">
+                    <i class="bi bi-chevron-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
             <div class="card bg-success text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-book display-4 mb-3"></i>
@@ -154,7 +170,7 @@
               </a>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 mb-3">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
             <div class="card bg-danger text-white h-100">
               <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <i class="bi bi-box-arrow-right display-4 mb-3"></i>

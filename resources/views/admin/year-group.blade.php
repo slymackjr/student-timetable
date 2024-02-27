@@ -67,12 +67,12 @@
                 <span>Classes Timetable</span>
               </a>
             </li>
-            {{-- <li>
-              <a href="{{route('exams-staff')}}" class="nav-link px-3">
+            <li>
+              <a href="{{route('notices')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-file-earmark-text"></i></span>
-                <span>Exams Timetable</span>
+                <span>Notices</span>
               </a>
-            </li> --}}
+            </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -113,126 +113,37 @@
         </div>
         <div class="pb-3">
           <a href="{{route('course-year',['course' => session('course')])}}">
-            <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left"></i>Years</button>
+            <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left me-2"></i>Years</button>
           </a>
         </div>
-       {{--  
         <div class="row">
-          <div class="col-md-3 mb-3">
-              <div class="card bg-primary text-white h-100">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                      <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                      <h5 class="card-title h6">GROUP 1</h5>
-                  </div>
-                  <a href="{{ route('group-session', ['group' => '1']) }}" class="nav-link text-white">
-                      <div class="card-footer d-flex">
-                          View Details
-                          <span class="ms-auto">
-                              <i class="bi bi-chevron-right"></i>
-                          </span>
-                      </div>
-                  </a>
-              </div>
-          </div>
+          @foreach($groups as $group)
+              @php
+                  // Define an array of default colors to be used in case no color is specified
+                  $defaultColors = ['bg-success', 'bg-primary', 'bg-danger'];
       
-          <div class="col-md-3 mb-3">
-              <div class="card bg-success text-white h-100">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                      <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                      <h5 class="card-title h6">GROUP 2</h5>
-                  </div>
-                  <a href="{{ route('group-session', ['group' => '2']) }}" class="nav-link text-white">
-                      <div class="card-footer d-flex">
-                          View Details
-                          <span class="ms-auto">
-                              <i class="bi bi-chevron-right"></i>
-                          </span>
-                      </div>
-                  </a>
-              </div>
-          </div>
+                  // Get the color for the current group, or use a default color if not specified
+                  $groupColor = $group->color ?? $defaultColors[($loop->index) % count($defaultColors)];
+              @endphp
       
-          <div class="col-md-3 mb-3">
-              <div class="card bg-danger text-white h-100">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                      <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                      <h5 class="card-title h6">GROUP 3</h5>
-                  </div>
-                  <a href="{{ route('group-session', ['group' => '3']) }}" class="nav-link text-white">
-                      <div class="card-footer d-flex">
-                          View Details
-                          <span class="ms-auto">
-                              <i class="bi bi-chevron-right"></i>
-                          </span>
+              <div class="col-md-3 mb-3">
+                  <div class="card {{ $groupColor }} text-white h-100">
+                      <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                          <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
+                          <h5 class="card-title h6">Group: {{ $group->group_name }}</h5>
                       </div>
-                  </a>
-              </div>
-          </div>
-      
-          <div class="col-md-3 mb-3">
-              <div class="card bg-success text-white h-100">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                      <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                      <h5 class="card-title h6">GROUP 4</h5>
+                      <a href="{{ route('group-session', ['group' => $group->group_name]) }}" class="nav-link text-white">
+                          <div class="card-footer d-flex">
+                              View Details
+                              <span class="ms-auto">
+                                  <i class="bi bi-chevron-right"></i>
+                              </span>
+                          </div>
+                      </a>
                   </div>
-                  <a href="{{ route('group-session', ['group' => '4']) }}" class="nav-link text-white">
-                      <div class="card-footer d-flex">
-                          View Details
-                          <span class="ms-auto">
-                              <i class="bi bi-chevron-right"></i>
-                          </span>
-                      </div>
-                  </a>
               </div>
-          </div>
-      
-          <div class="col-md-3 mb-3">
-              <div class="card bg-danger text-white h-100">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                      <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                      <h5 class="card-title h6">GROUP 5</h5>
-                  </div>
-                  <a href="{{ route('group-session', ['group' => '5']) }}" class="nav-link text-white">
-                      <div class="card-footer d-flex">
-                          View Details
-                          <span class="ms-auto">
-                              <i class="bi bi-chevron-right"></i>
-                          </span>
-                      </div>
-                  </a>
-              </div>
-          </div>
+          @endforeach
         </div>
-       --}}
-       <div class="row">
-        @foreach($groups as $group)
-            @php
-                // Define an array of default colors to be used in case no color is specified
-                $defaultColors = ['bg-success', 'bg-primary', 'bg-danger'];
-    
-                // Get the color for the current group, or use a default color if not specified
-                $groupColor = $group->color ?? $defaultColors[($loop->index) % count($defaultColors)];
-            @endphp
-    
-            <div class="col-md-3 mb-3">
-                <div class="card {{ $groupColor }} text-white h-100">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <i class="bi bi-people display-4 mb-3"></i> <!-- Group icon -->
-                        <h5 class="card-title h6">Group: {{ $group->group_name }}</h5>
-                    </div>
-                    <a href="{{ route('group-session', ['group' => $group->group_name]) }}" class="nav-link text-white">
-                        <div class="card-footer d-flex">
-                            View Details
-                            <span class="ms-auto">
-                                <i class="bi bi-chevron-right"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        @endforeach
-    </div>
-    
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
