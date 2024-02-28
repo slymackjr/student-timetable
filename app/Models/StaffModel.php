@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PHPUnit\TestRunner\TestResult\Collector;
 
 class StaffModel extends Model
 {
@@ -108,7 +110,7 @@ class StaffModel extends Model
        
     }
 
-    public function showGroups()
+    public function showGroups(): Collection
     {
           return Groups::where('course_id',session('course'))
                         ->where('course_year',session('year'))
@@ -116,7 +118,7 @@ class StaffModel extends Model
                         ->get();
     }
 
-    public function courseGroupTimetable()
+    public function courseGroupTimetable(): Collection
     {
         $course = session('course');
         $year = session('year');
@@ -132,7 +134,7 @@ class StaffModel extends Model
 }
 
 
-    public function showGroupTimetable()
+    public function showGroupTimetable(): Collection
     {
         $class_id = session('class_id');
         if ($class_id) {
@@ -146,40 +148,40 @@ class StaffModel extends Model
     public function deleteGroupTimetable($class_id): bool
     {
 
-    // Find the record to delete
-    $class = Classes::find($class_id);
+        // Find the record to delete
+        $class = Classes::find($class_id);
 
-    if (!$class) {
-        // Handle the case where the record is not found
-        // You can redirect back with an error message or take appropriate action
-        session()->flash('success', 'Class session not found.');
-        return false;
-    }
-    // Delete the record
-    $deleted = $class->delete();
+        if (!$class) {
+            // Handle the case where the record is not found
+            // You can redirect back with an error message or take appropriate action
+            session()->flash('success', 'Class session not found.');
+            return false;
+        }
+        // Delete the record
+        $deleted = $class->delete();
 
-    if ($deleted) {
-        session()->flash('success', 'Class session deleted successfully.');
-        return true;
-    } else {
-        session()->flash('success', 'Failed to delete class session.');
-        return false;
-    }
+        if ($deleted) {
+            session()->flash('success', 'Class session deleted successfully.');
+            return true;
+        } else {
+            session()->flash('success', 'Failed to delete class session.');
+            return false;
+        }
     }
 
-    public function showVenues()
+    public function showVenues(): Collection
     {
         return Venues::all();
     }
 
-    public function showModules()
+    public function showModules(): Collection
     {
         return Modules::where('course_id',session('course'))
                         ->where('course_year',session('year'))
                         ->get();
     }
 
-    public function showLecturers()
+    public function showLecturers(): Collection
     {
         $course = Courses::find(session('course'));
         $faculty_name = $course->faculty_name;
@@ -253,7 +255,7 @@ class StaffModel extends Model
         
 
 
-    public function staffAccount()
+    public function staffAccount(): void
     {
         $staff = Staff::where('email',session('email'))->first();
         Session::put('name', $staff->name);

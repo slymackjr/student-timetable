@@ -8,13 +8,14 @@ use App\Models\Staff;
 use App\Models\Classes;
 use Illuminate\View\View;
 use App\Models\StaffModel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class StaffController extends Controller
 {
 
-    public function registerStaff(Request $request)
+    public function registerStaff(Request $request): RedirectResponse
     {
      
         $request->validate(Staff::$rules);
@@ -40,7 +41,7 @@ class StaffController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $email = $request->input('email');
         $password = $request->input('password');
@@ -59,7 +60,7 @@ class StaffController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
 {
     $staff = new StaffModel();
     if (!$staff->logoutStaff()) {

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
@@ -79,7 +80,7 @@ class StudentModel extends Model
          return false;
     }
 
-    public function studentTimetable()
+    public function studentTimetable(): Collection
     {
        if($this->studentAccount()){
                 // Retrieve classes for the current day
@@ -94,7 +95,7 @@ class StudentModel extends Model
        
     }
 
-    public function WeekTimetable()
+    public function WeekTimetable(): Collection
     {
         return Classes::where('course_year', session('year'))
                         ->where('course_group', session('group'))

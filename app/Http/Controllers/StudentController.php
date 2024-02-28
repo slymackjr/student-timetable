@@ -6,12 +6,13 @@ use App\Models\Student;
 use Illuminate\View\View;
 use App\Models\NoticeModel;
 use App\Models\StudentModel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-    public function loginStudent(Request $request)
+    public function loginStudent(Request $request): RedirectResponse
     {
         $regno = $request->input('regno');
         $password = $request->input('password');
@@ -31,7 +32,7 @@ class StudentController extends Controller
         }
     }
 
-    public function logoutStudent()
+    public function logoutStudent(): RedirectResponse
 {
     $student = new StudentModel();
     if (!$student->logoutStudent()) {
@@ -58,7 +59,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function studentProfile()
+    public function studentProfile(): View
     {
         $student = new StudentModel();
         $student->studentAccount();

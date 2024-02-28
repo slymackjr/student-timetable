@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,12 +14,12 @@ class NoticeModel extends Model
 
     }
 
-    public function showNotices()
+    public function showNotices(): Collection
     {
         return Notice::orderBy('start_date', 'desc')->get();
     }
 
-    public function createNewNotice($notice_message,$due_date)
+    public function createNewNotice($notice_message,$due_date): bool
     {
          // Insert the new record.
          $notice = new Notice();
@@ -34,26 +35,26 @@ class NoticeModel extends Model
          return false;
     }
 
-    public function deleteNotice($notice_id)
+    public function deleteNotice($notice_id): bool
     {
         // Find the record to delete
-    $notice = Notice::find($notice_id);
+        $notice = Notice::find($notice_id);
 
-    if (!$notice) {
-        // Handle the case where the record is not found
-        // You can redirect back with an error message or take appropriate action
-        //session()->flash('success', 'notice not found.');
-        return false;
-    }
-    // Delete the record
-    $deleted = $notice->delete();
+        if (!$notice) {
+            // Handle the case where the record is not found
+            // You can redirect back with an error message or take appropriate action
+            //session()->flash('success', 'notice not found.');
+            return false;
+        }
+        // Delete the record
+        $deleted = $notice->delete();
 
-    if ($deleted) {
-        session()->flash('success', 'notice deleted successfully.');
-        return true;
-    } else {
-        session()->flash('success', 'Failed to delete notice.');
-        return false;
-    }
+        if ($deleted) {
+            session()->flash('success', 'notice deleted successfully.');
+            return true;
+        } else {
+            session()->flash('success', 'Failed to delete notice.');
+            return false;
+        }
     }
 }
