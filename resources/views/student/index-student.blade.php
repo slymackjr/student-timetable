@@ -65,12 +65,6 @@
                 <span>Class Timetable</span>
               </a>
             </li>
-            {{-- <li>
-              <a href="{{route('exam-sessions')}}" class="nav-link px-3">
-                <span class="me-2"><i class="bi bi-calendar-check"></i></span>
-                <span>Exam Timetable</span>
-              </a>
-            </li> --}}
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
@@ -93,56 +87,6 @@
         <div class="row">
           <div class="col-md-12">
             <h4>Dashboard</h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card bg-success text-white h-100">
-              <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <i class="bi bi-book text-white display-4 mb-3"></i>
-                <h5 class="card-title">Class Timetable</h5>
-              </div>
-              <a href="{{route('week-classes')}}" class="nav-link text-white">
-                <div class="card-footer d-flex">
-                  View Details
-                  <span class="ms-auto">
-                    <i class="bi bi-chevron-right"></i>
-                  </span>
-                </div>
-              </a>
-            </div>
-          </div>        
-          <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card bg-danger text-white h-100">
-              <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <i class="bi bi-box-arrow-right display-4 mb-3"></i>
-                <h5 class="card-title">Logout</h5>
-              </div>
-              <a href="{{route('logout-student')}}" class="nav-link text-white">
-                <div class="card-footer d-flex">
-                  Here
-                  <span class="ms-auto">
-                    <i class="bi bi-chevron-right"></i>
-                  </span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card bg-warning text-white h-100">
-              <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <i class="bi bi-person text-white display-4 mb-3"></i>
-                <h5 class="card-title">Personal Details</h5>
-              </div>
-              <a href="{{route('profile-student')}}" class="nav-link text-white">
-                <div class="card-footer d-flex">
-                  View Details
-                  <span class="ms-auto">
-                    <i class="bi bi-chevron-right"></i>
-                  </span>
-                </div>
-              </a>
-            </div>
           </div>
         </div>
         <div class="row">
