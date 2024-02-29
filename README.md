@@ -112,15 +112,15 @@ This Online Timetable System can be used in universities , colleges and even sch
 
 <div style="overflow-x: auto; white-space: nowrap;">
   <img src="screenshots/image1.png" alt="Image 1" style="display: inline-block; max-width: 100%;">
-  <img src="screenshots/image2.png" alt="Image 1" style="display: inline-block; max-width: 100%;">
+  <img src="screenshots/image2.png" alt="Image 1" style="display: inline-block; max-width: 27%;">
   <img src="screenshots/image3.png" alt="Image 1" style="display: inline-block; max-width: 100%;">
-  <img src="screenshots/image4.png" alt="Image 1" style="display: inline-block; max-width: 100%;">
+  <img src="screenshots/image4.png" alt="Image 1" style="display: inline-block; max-width: 27%;">
   <img src="screenshots/image5.png" alt="Image 2" style="display: inline-block; max-width: 100%;">
-  <img src="screenshots/image6.png" alt="Image 3" style="display: inline-block; max-width: 100%;">
+  <img src="screenshots/image6.png" alt="Image 3" style="display: inline-block; max-width: 27%;">
   <img src="screenshots/image7.png" alt="Image 3" style="display: inline-block; max-width: 100%;">
-  <img src="screenshots/image8.png" alt="Image 3" style="display: inline-block; max-width: 100%;">
+  <img src="screenshots/image8.png" alt="Image 3" style="display: inline-block; max-width: 27%;">
   <img src="screenshots/image9.png" alt="Image 3" style="display: inline-block; max-width: 100%;">
-  <img src="screenshots/image10.png" alt="Image 3" style="display: inline-block; max-width: 100%;">
+  <img src="screenshots/image10.png" alt="Image 3" style="display: inline-block; max-width: 27%;">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
