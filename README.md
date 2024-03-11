@@ -1,4 +1,3 @@
-<!-- Improved compatibility of back-to-top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 
 
@@ -170,7 +169,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 Jofrey Nyamasheki - [https://twitter.com/slymackjr](https://x.com/slymack_w?t=naiyIend2MU_qg-Tm4jQgw&s=09)
-Project Link: [https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1](https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1)
+Project Link: [https://github.com/slymackjr/student-timetable](https://github.com/slymackjr/student-timetable)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -193,16 +192,16 @@ I would like to thank these wonderful tools that enabled me to make it all happe
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/slymackjr/E-commerce-Home-Page-Project-Test-1.svg?style=for-the-badge&color=4EA94B
-[contributors-url]: https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/slymackjr/E-commerce-Home-Page-Project-Test-1.svg?style=for-the-badge
-[forks-url]: https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1/network/members
-[stars-shield]: https://img.shields.io/github/stars/slymackjr/E-commerce-Home-Page-Project-Test-1.svg?style=for-the-badge
-[stars-url]: https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1/stargazers
-[issues-shield]: https://img.shields.io/github/issues/slymackjr/E-commerce-Home-Page-Project-Test-1.svg?style=for-the-badge
-[issues-url]: https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1/issues
-[license-shield]: https://img.shields.io/github/license/slymackjr/E-commerce-Home-Page-Project-Test-1.svg?style=for-the-badge
-[license-url]: https://github.com/slymackjr/E-commerce-Home-Page-Project-Test-1/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/slymackjr/student-timetable.svg?style=for-the-badge&color=4EA94B
+[contributors-url]: https://github.com/slymackjr/student-timetable/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/slymackjr/student-timetable.svg?style=for-the-badge
+[forks-url]: https://github.com/slymackjr/student-timetable/network/members
+[stars-shield]: https://img.shields.io/github/stars/slymackjr/student-timetable.svg?style=for-the-badge
+[stars-url]: https://github.com/slymackjr/student-timetable/stargazers
+[issues-shield]: https://img.shields.io/github/issues/slymackjr/student-timetable.svg?style=for-the-badge
+[issues-url]: https://github.com/slymackjr/student-timetable/issues
+[license-shield]: https://img.shields.io/github/license/slymackjr/student-timetable.svg?style=for-the-badge
+[license-url]: https://github.com/slymackjr/student-timetable/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jofrey-nyamasheki-9bb8781ab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
 [product-screenshot]: screenshots/image1.png
