@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-      <div id="intro-example" class="p-5 text-center bg-image align-items-center">
+      <div id="intro-example" class="text-center bg-image align-items-center mt-5 mb-5">
         <section>
             <div class="container h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">

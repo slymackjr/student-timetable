@@ -77,6 +77,12 @@
                 <span>Profile Details</span>
               </a>
             </li>
+            <li>
+              <a href="{{route('logout-student')}}" class="nav-link px-3">
+                <span class="me-2"><i class="bi bi-box-arrow-right"></i></span>
+                <span>Logout</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

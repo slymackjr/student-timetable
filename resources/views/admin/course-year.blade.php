@@ -113,8 +113,8 @@
             <button type="button" name="cid" class="btn btn-outline-success"><i class="bi bi-arrow-left me-2"></i>Courses</button>
           </a>
         </div>
-        <div class="row">
-          <div class="col-md-4 mb-3">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
               <div class="card bg-primary text-white h-100">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
                       <i class="bi bi-emoji-laughing display-4 mb-3"></i> <!-- Beginner icon -->
@@ -131,7 +131,7 @@
               </div>
           </div>
       
-          <div class="col-md-4 mb-3">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
               <div class="card bg-success text-white h-100">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
                       <i class="bi bi-emoji-neutral display-4 mb-3"></i> <!-- Intermediate icon -->
@@ -148,7 +148,7 @@
               </div>
           </div>
       
-          <div class="col-md-4 mb-3">
+          <div class="col-lg-3 col-md-4 mb-3 max-w-280">
               <div class="card bg-danger text-white h-100">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
                       <i class="bi bi-emoji-smile display-4 mb-3"></i> <!-- Pro icon -->

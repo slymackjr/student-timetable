@@ -134,7 +134,7 @@ class StaffModel extends Model
 }
 
 
-    public function showGroupTimetable(): Collection
+    public function showGroupTimetable()
     {
         $class_id = session('class_id');
         if ($class_id) {

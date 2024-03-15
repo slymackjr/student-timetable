@@ -59,24 +59,30 @@
             </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
-              <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Interface</div>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-3">Timetables</div>
             </li>
             <li>
               <a href="{{route('week-classes')}}" class="nav-link px-3">
                 <span class="me-2"> <i class="bi bi-book"></i></span>
-                <span>Classes Timetable</span>
+                <span>Class Timetable</span>
               </a>
             </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                Addons
+                Details
               </div>
             </li>
             <li>
               <a href="{{route('profile-student')}}" class="nav-link px-3">
                 <span class="me-2"><i class="bi bi-person-fill"></i></span>
                 <span>Profile Details</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{route('logout-student')}}" class="nav-link px-3">
+                <span class="me-2"><i class="bi bi-box-arrow-right"></i></span>
+                <span>Logout</span>
               </a>
             </li>
           </ul>
