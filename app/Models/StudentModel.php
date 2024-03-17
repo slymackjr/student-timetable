@@ -80,7 +80,7 @@ class StudentModel extends Model
          return false;
     }
 
-    public function studentTimetable(): Collection
+    public function studentTimetable()
     {
        if($this->studentAccount()){
                 // Retrieve classes for the current day

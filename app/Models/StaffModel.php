@@ -118,7 +118,7 @@ class StaffModel extends Model
                         ->get();
     }
 
-    public function courseGroupTimetable(): Collection
+    public function courseGroupTimetable()
     {
         $course = session('course');
         $year = session('year');

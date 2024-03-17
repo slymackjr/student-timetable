@@ -60,7 +60,7 @@ class StaffController extends Controller
         }
     }
 
-    public function logout(): RedirectResponse
+    public function logout()
 {
     $staff = new StaffModel();
     if (!$staff->logoutStaff()) {

@@ -32,7 +32,7 @@ class StudentController extends Controller
         }
     }
 
-    public function logoutStudent(): RedirectResponse
+    public function logoutStudent()
 {
     $student = new StudentModel();
     if (!$student->logoutStudent()) {
